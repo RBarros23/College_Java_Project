@@ -4,7 +4,7 @@ import util.Consola;
 
 public class Principal {
     public static void main(String[] args) {
-
+        int TEST;
     }
 
     public static int menuInicial(){
