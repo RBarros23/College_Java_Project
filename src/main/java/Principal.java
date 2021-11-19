@@ -89,16 +89,6 @@ public class Principal {
         return true;
     }
 
-    public static Boolean verNumIdentCentral(ArrayList<Central> c, int numIdent) {
-        for (Central i : c) {
-            if (numIdent == i.getNumIdentificacao()) {
-                System.out.println("Já existe uma empresa com este NIF associado!");
-                return false;
-            }
-        }
-        return true;
-    }
-
 
 
 
