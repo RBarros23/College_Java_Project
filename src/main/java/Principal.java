@@ -4,32 +4,45 @@ import util.Consola;
 public class Principal {
 
     public static void main(String[] args) {
-        int op = 0;
+        int opcao = 0, op = 0;
         do {
-            op = menuInicial();
-            switch (op) {
-                case 1:
+            opcao = menuInicial();
+            switch (opcao) {
+                case 1: //Inserir e consultar (todas) empresas.
                     break;
-                case 2:
+                case 2: //Inserir e consultar (por nif) funcionários
                     break;
-                case 3:
+                case 3: //Inserir, consultar (por tipo) e alterar dados de tipos de equipamento
                     break;
-                case 4:
+                case 4: //Inserir, consultar (por localidade) centrais
                     break;
-                case 5:
+                case 5: //Associar empresas a uma central
                     break;
-                case 6:
+                case 6: //Associar valor de produção energética anual a uma central
                     break;
-                case 7:
+                case 7: //Estatisticas
+                    do{
+                        op = menuStats();
+                        switch (op){
+                            case 1: //Lista de centrais fotovoltaicas com mais de 10000 painéis
+                                break;
+                            case 2: //Numero de funcionários por empresa
+                                break;
+                            case 3: //Médias de produção de energética
+                                break;
+                            case 4: //Total de produção energética anual por tipo
+                                break;
+                            case 0: //Voltar para o menu principal
+                                break;
+                        }
+                    }while(op != 0);
                     break;
-                case 8:
+                case 8: //Gravar dados
                     break;
-                case 0:
+                case 0: //Gravar e sair
                     break;
-
-
             }
-        }while(op != 0);
+        }while(opcao != 0);
     }
 
     public static int menuInicial(){
@@ -47,11 +60,13 @@ public class Principal {
         return Consola.lerInt("Opção: ",0,8);
     }
 
-    public static void menuStats(){
+    public static int menuStats(){
         System.out.println("1 - Lista de centrais fotovoltaicas com mais de 10000 painéis.");
         System.out.println("2 - Numero de funcionários por empresa."); //Ordenado por ordem crescente pelo nome da empresa
-        System.out.println("Médias de produção de energética."); //Ordenadas por ordem decrescente da média e desde que entraram em serviço
-        System.out.println("Total de produção energética anual por tipo.");
+        System.out.println("3 - Médias de produção de energética."); //Ordenadas por ordem decrescente da média e desde que entraram em serviço
+        System.out.println("4 - Total de produção energética anual por tipo.");
+        System.out.println("0 - Voltar para o menu principal.");
+        return Consola.lerInt("Opção: ",0,4);
     }
 
     public static Boolean verNifEmp(ArrayList<Empresas> e, int nif){
