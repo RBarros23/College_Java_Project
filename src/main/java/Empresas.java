@@ -1,7 +1,10 @@
+import java.util.ArrayList;
+
 public class Empresas {
     private String nome;
     private String morada;
     private int nif; //unico
+    private ArrayList<Funcionarios> empregados = new ArrayList<>();
 
 
     public Empresas() {}
@@ -16,6 +19,10 @@ public class Empresas {
 
     public int getNif() {
         return nif;
+    }
+
+    public ArrayList<Funcionarios> getEmpregados() {
+        return empregados;
     }
 
     @Override

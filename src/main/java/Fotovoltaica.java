@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Fotovoltaica extends Central{
     private int area;
     private int numPaineis;
@@ -7,8 +9,8 @@ public class Fotovoltaica extends Central{
 
     public Fotovoltaica(){}
     //potencia deste tipo de central = numPaineis * potPainel
-    public Fotovoltaica(String designacao, String localidade, int anoInicio, int area, int numPaineis, int potPainel){
-        super(designacao, localidade, anoInicio, numPaineis*potPainel);
+    public Fotovoltaica(String designacao, String localidade, int anoInicio, ArrayList<String> emp, int area, int numPaineis, int potPainel){
+        super(designacao, localidade, anoInicio, numPaineis*potPainel, emp);
         this.area = area;
         this.numPaineis = numPaineis;
         this.potPainel = potPainel;

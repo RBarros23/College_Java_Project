@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Eolica extends Central{
     private int numAeroger;
     private int potAeroger; //potencia de cada aerogerador
@@ -5,8 +7,8 @@ public class Eolica extends Central{
 
     public Eolica(){}
 
-    public Eolica(String designacao, String localidade, int anoInicio, int numAeroger, int potAeroger){
-        super(designacao, localidade, anoInicio, numAeroger*potAeroger);
+    public Eolica(String designacao, String localidade, int anoInicio, ArrayList<String> emp, int numAeroger, int potAeroger){
+        super(designacao, localidade, anoInicio, numAeroger*potAeroger, emp);
         this.numAeroger = numAeroger;
         this.potAeroger = potAeroger;
     }

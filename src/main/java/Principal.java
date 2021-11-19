@@ -1,14 +1,21 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import util.Consola;
 
 public class Principal {
 
     public static void main(String[] args) {
-        int opcao = 0, op = 0;
+        ArrayList<Empresas> emp = new ArrayList<>();
+        ArrayList<Hidroeletrica> hidro = new ArrayList<>();
+        ArrayList<Fotovoltaica> fotovolt = new ArrayList<>();
+        ArrayList<Eolica> eolica = new ArrayList<>();
+
+        int opcao, op;
         do {
             opcao = menuInicial();
             switch (opcao) {
-                case 1: //Inserir e consultar (todas) empresas.
+                case 1: //Inserir e consultar empresas.
+                    inserirEmp();
                     break;
                 case 2: //Inserir e consultar (por nif) funcionários
                     break;
@@ -89,6 +96,10 @@ public class Principal {
         return true;
     }
 
+    public static void inserirEmp(){
+        ArrayList<Empresas> e = new ArrayList(Consola.lerString("Nome da empresa: "), Consola.lerString("Morada da empresa: "), Consola.lerInt("NIF da empresa",0,999999999));
+
+    }
 
 
 

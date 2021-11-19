@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Hidroeletrica extends Central {
     private String cursoAgua;
     private String aproveitamento; //por exemplo albufeira
@@ -7,8 +9,8 @@ public class Hidroeletrica extends Central {
     public Hidroeletrica(){}
 
 
-    public Hidroeletrica(String designacao, String localidade, int anoInicio, int potencia, String cursoAgua, String aproveitamento, int capacidade) {
-        super(designacao, localidade, anoInicio, potencia);
+    public Hidroeletrica(String designacao, String localidade, int anoInicio, int potencia, ArrayList<String> emp, String cursoAgua, String aproveitamento, int capacidade) {
+        super(designacao, localidade, anoInicio, potencia, emp);
         this.cursoAgua = cursoAgua;
         this.aproveitamento = aproveitamento;
         this.capacidade = capacidade;

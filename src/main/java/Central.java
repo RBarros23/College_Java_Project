@@ -1,20 +1,24 @@
+import java.util.ArrayList;
+
 public class Central {
-    private int numIdentificacao; //unico e sequencial
+    private static int numIdentificacao; //unico e sequencial
     private String designacao;
     private String localidade;
     private int anoInicio;
     private int potencia; //potencia instalada
+    private ArrayList<ArrayList<String>> donos = new ArrayList<ArrayList<String>>();
 
 
     public Central() {}
 
 
-    public Central(String designacao,String localidade, int anoInicio, int potencia){
-        this.numIdentificacao = numIdentificacao;
+    public Central(String designacao,String localidade, int anoInicio, int potencia, ArrayList<String> emp){
+        numIdentificacao ++; //como o num é estático irá manter o seu valor e quando for criada uma nova central será com valor +1 que o existente
         this.designacao = designacao;
         this.localidade = localidade;
         this.anoInicio = anoInicio;
         this.potencia = potencia;
+        donos.add(emp);
     }
 
 
