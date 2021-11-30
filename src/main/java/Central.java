@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Central {
@@ -6,7 +7,7 @@ public class Central {
     private String localidade;
     private int anoInicio;
     private int potencia; //potencia instalada
-    private ArrayList<Integer> donos = new ArrayList<Integer>();
+    private ArrayList<Empresas> donos = new ArrayList<>();
 
 
     public Central() {}
@@ -25,8 +26,9 @@ public class Central {
         return numIdentificacao;
     }
 
-    public void setDonos(int nifEmpresa){
-        donos.add(nifEmpresa);
+
+    public void setDonos(Empresas donos) {
+        this.donos.add(donos);
     }
 
     @Override

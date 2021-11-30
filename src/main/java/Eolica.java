@@ -5,13 +5,14 @@ public class Eolica extends Central{
     private int potAeroger; //potencia de cada aerogerador
     private ArrayList<Equipamento> equip = new ArrayList<>();
 
-    public Eolica(){}
+    public Eolica(){
+        super();
+    }
 
-    public Eolica(int numIdentificacao, String designacao, String localidade, int anoInicio, int nifDonos, int numAeroger, int potAeroger){
+    public Eolica(int numIdentificacao, String designacao, String localidade, int anoInicio, int numAeroger, int potAeroger){
         super(numIdentificacao, designacao, localidade, anoInicio, numAeroger*potAeroger);
         this.numAeroger = numAeroger;
         this.potAeroger = potAeroger;
-        super.setDonos(nifDonos);
     }
 
     @Override
@@ -33,5 +34,9 @@ public class Eolica extends Central{
 
     public void addEquip(Equipamento e){  //confirmar no main se é do tipo A
         equip.add(e);
+    }
+
+    public void setDonos(Empresas donos){
+        super.setDonos(donos);
     }
 }

@@ -6,16 +6,17 @@ public class Hidroeletrica extends Central {
     private int capacidade; //Mm^3
 
 
-    public Hidroeletrica(){}
+    public Hidroeletrica(){
+        super();
+    }
 
 
     public Hidroeletrica(int numIdentificacao, String designacao, String localidade, int anoInicio, int potencia,
-                         int nifDonos, String cursoAgua, String aproveitamento, int capacidade) {
+                            String cursoAgua, String aproveitamento, int capacidade) {
         super(numIdentificacao, designacao, localidade, anoInicio, potencia);
         this.cursoAgua = cursoAgua;
         this.aproveitamento = aproveitamento;
         this.capacidade = capacidade;
-        super.setDonos(nifDonos);
     }
 
     @Override
@@ -37,5 +38,9 @@ public class Hidroeletrica extends Central {
 
     public int getCapacidade() {
         return capacidade;
+    }
+
+    public void setDonos(Empresas donos){
+        super.setDonos(donos);
     }
 }

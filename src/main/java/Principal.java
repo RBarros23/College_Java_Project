@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import util.Consola;
 
@@ -16,7 +15,7 @@ public class Principal {
             opcao = menuInicial();
             switch (opcao) {
                 case 1: //Inserir e consultar empresas.
-                    //inserirEmp();
+                    insConslt();
                     break;
                 case 2: //Inserir e consultar (por nif) funcionários
                     break;
@@ -26,6 +25,7 @@ public class Principal {
                         //sempre que adicionar uma central incrementar contCentrais e associar ao numIdentificacao
                     break;
                 case 5: //Associar empresas a uma central
+                    assosEmpresa( emp,  hidro,  fotovolt,  eolica, contCentrais);
                     break;
                 case 6: //Associar valor de produção energética anual a uma central
                     break;
@@ -56,7 +56,7 @@ public class Principal {
 
     public static int menuInicial(){
         System.out.println("Número de centrais existentes:");
-        System.out.println("Hidroeletrica: " + "Fotovoltaicas: " + "Eolica: " ); //falta contadores de centrais // utilizador tamanho das listas
+        System.out.println("Hidroeletrica: " + "Fotovoltaicas: " + "Eolica: " ); //falta contadores de centrais // utilizar tamanho das listas
         System.out.println("1 - Inserir e consultar (todas) empresas.");
         System.out.println("2 - Inserir e consultar (por nif) funcionários.");
         System.out.println("3 - Inserir, consultar (por tipo) e alterar dados de tipos de equipamento.");
@@ -76,6 +76,33 @@ public class Principal {
         System.out.println("4 - Total de produção energética anual por tipo.");
         System.out.println("0 - Voltar para o menu principal.");
         return Consola.lerInt("Opção: ",0,4);
+    }
+
+    public static void insConslt(){
+        int opcao = 0;
+        opcao = Consola.lerInt("Inserir (1) ou Consultar (2) (Voltar ao menu principal (0)): ", 0, 2);
+        switch (opcao){
+            case 0:
+                break;
+            case 1:
+                inserirEmp();
+                break;
+            case 2:
+                break;
+        }
+    }
+
+    public static void inserirEmp(ArrayList<Empresas> emp){
+        String nome, morada;
+        int nif;
+        nome = Consola.lerString("Nome da empresa: ");
+        morada = Consola.lerString("Morada da empresa: ");
+        nif = Consola.lerInt("NIF da empresa: ", 0,999999999);
+        for(int i = 0; i < emp.size(); i++){
+            if(nif == emp.get(i).getNif()) {
+                System.out.println("Já existe uma empresa com esse NIF!");
+            }
+        }
     }
 
     public static Boolean verNifEmp(ArrayList<Empresas> e, int nif){
@@ -98,10 +125,64 @@ public class Principal {
         return true;
     }
 
-//    public static void inserirEmp(){
-//        ArrayList<Empresas> e = new ArrayList(Consola.lerString("Nome da empresa: "), Consola.lerString("Morada da empresa: "), Consola.lerInt("NIF da empresa",0,999999999));
-//    }
+
+    public static void assosEmpresa(ArrayList<Empresas> emp, ArrayList<Hidroeletrica> hidro, ArrayList<Fotovoltaica> fotovolt, ArrayList<Eolica> eolica, int contaCentrais) {
+        int opcao = -2, contador = 0, opcaoCentral = 0, contaAdi = 0;
+
+        if (emp.size() != 0 && contaCentrais != 0) {
+            do {
+                opcao = Consola.lerInt("Insira NIF da empresa (-1 para sair): ", -1, 999999999);
+                for (int i = 0; i < emp.size(); i++) {
+                    if (emp.get(i).getNif() == opcao) {
+                        contador = i;
+                        i = emp.size();
+                    }
+                }
+                if (contador == 0)
+                    System.out.println("Não existe nenhuma empresa com esse NIF!");
+                else {
+                    do {
+                        opcaoCentral = Consola.lerInt("Insira numero de identificacao da central (-1 para sair): ", -1, 999999999);
+                        for (int j = 0; j < contaCentrais; j++) {
+                            if (opcaoCentral == hidro.get(j).getNumIdentificacao()) {
+                                hidro.get(j).setDonos(emp.get(contador));
+                                contaAdi++;
+                                j = contaCentrais;
+                            } else if (opcaoCentral == fotovolt.get(j).getNumIdentificacao()) {
+                                fotovolt.get(j).setDonos(emp.get(contador));
+                                contaAdi++;
+                                j = contaCentrais;
+                            } else if (opcaoCentral == eolica.get(j).getNumIdentificacao()) {
+                                eolica.get(j).setDonos(emp.get(contador));
+                                contaAdi++;
+                                j = contaCentrais;
+                            }
+                        }
+                        if (contaAdi == 0)
+                            System.out.println("Não existe nenhuma central com este numero de identificação: " + opcaoCentral);
+                    } while (opcaoCentral != -1);
+
+                }
+            } while (opcao != -1 || opcaoCentral != -1);
+
+        }
+        else
+            System.out.println("Não existem centrais/empresas, adicione primeiro!");
+    }
 
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

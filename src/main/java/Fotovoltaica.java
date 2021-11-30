@@ -7,14 +7,17 @@ public class Fotovoltaica extends Central{
     private ArrayList<Equipamento> equip = new ArrayList<>();
 
 
-    public Fotovoltaica(){}
+    public Fotovoltaica(){
+        super();
+    }
+
+
     //potencia deste tipo de central = numPaineis * potPainel
-    public Fotovoltaica(int numIdentificacao, String designacao, String localidade, int anoInicio, int nifDonos, int area, int numPaineis, int potPainel){
+    public Fotovoltaica(int numIdentificacao, String designacao, String localidade, int anoInicio, int area, int numPaineis, int potPainel){
         super(numIdentificacao, designacao, localidade, anoInicio, numPaineis*potPainel);
         this.area = area;
         this.numPaineis = numPaineis;
         this.potPainel = potPainel;
-        super.setDonos(nifDonos);
     }
 
     public void addEquip(Equipamento e){  //confirmar no main se é do tipo P
@@ -29,5 +32,9 @@ public class Fotovoltaica extends Central{
                 ", potPainel=" + potPainel +
                 '}');
                 return super.toString();
+    }
+
+    public void setDonos(Empresas donos){
+        super.setDonos(donos);
     }
 }
