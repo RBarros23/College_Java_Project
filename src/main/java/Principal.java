@@ -10,18 +10,20 @@ public class Principal {
         ArrayList<Fotovoltaica> fotovolt = new ArrayList<>();
         ArrayList<Eolica> eolica = new ArrayList<>();
 
+        int contCentrais = 0;
         int opcao, op;
         do {
             opcao = menuInicial();
             switch (opcao) {
                 case 1: //Inserir e consultar empresas.
-                    inserirEmp();
+                    //inserirEmp();
                     break;
                 case 2: //Inserir e consultar (por nif) funcionários
                     break;
                 case 3: //Inserir, consultar (por tipo) e alterar dados de tipos de equipamento
                     break;
                 case 4: //Inserir, consultar (por localidade) centrais
+                        //sempre que adicionar uma central incrementar contCentrais e associar ao numIdentificacao
                     break;
                 case 5: //Associar empresas a uma central
                     break;
@@ -96,10 +98,9 @@ public class Principal {
         return true;
     }
 
-    public static void inserirEmp(){
-        ArrayList<Empresas> e = new ArrayList(Consola.lerString("Nome da empresa: "), Consola.lerString("Morada da empresa: "), Consola.lerInt("NIF da empresa",0,999999999));
-
-    }
+//    public static void inserirEmp(){
+//        ArrayList<Empresas> e = new ArrayList(Consola.lerString("Nome da empresa: "), Consola.lerString("Morada da empresa: "), Consola.lerInt("NIF da empresa",0,999999999));
+//    }
 
 
 

@@ -3,15 +3,17 @@ import java.util.ArrayList;
 public class Eolica extends Central{
     private int numAeroger;
     private int potAeroger; //potencia de cada aerogerador
-    //falta tipo de equipamento
+    private ArrayList<Equipamento> equip = new ArrayList<>();
 
     public Eolica(){}
 
-    public Eolica(String designacao, String localidade, int anoInicio, ArrayList<String> emp, int numAeroger, int potAeroger){
-        super(designacao, localidade, anoInicio, numAeroger*potAeroger, emp);
+    public Eolica(int numIdentificacao, String designacao, String localidade, int anoInicio, int nifDonos, int numAeroger, int potAeroger){
+        super(numIdentificacao, designacao, localidade, anoInicio, numAeroger*potAeroger);
         this.numAeroger = numAeroger;
         this.potAeroger = potAeroger;
+        super.setDonos(nifDonos);
     }
+
     @Override
     public String toString() {
         System.out.println("Central Hidroeletrica");
@@ -26,5 +28,10 @@ public class Eolica extends Central{
 
     public int getPotAeroger() {
         return potAeroger;
+    }
+
+
+    public void addEquip(Equipamento e){  //confirmar no main se é do tipo A
+        equip.add(e);
     }
 }

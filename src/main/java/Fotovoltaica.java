@@ -4,16 +4,21 @@ public class Fotovoltaica extends Central{
     private int area;
     private int numPaineis;
     private int potPainel; //potencia de cada painel
-    //falta tipo equipamento
+    private ArrayList<Equipamento> equip = new ArrayList<>();
 
 
     public Fotovoltaica(){}
     //potencia deste tipo de central = numPaineis * potPainel
-    public Fotovoltaica(String designacao, String localidade, int anoInicio, ArrayList<String> emp, int area, int numPaineis, int potPainel){
-        super(designacao, localidade, anoInicio, numPaineis*potPainel, emp);
+    public Fotovoltaica(int numIdentificacao, String designacao, String localidade, int anoInicio, int nifDonos, int area, int numPaineis, int potPainel){
+        super(numIdentificacao, designacao, localidade, anoInicio, numPaineis*potPainel);
         this.area = area;
         this.numPaineis = numPaineis;
         this.potPainel = potPainel;
+        super.setDonos(nifDonos);
+    }
+
+    public void addEquip(Equipamento e){  //confirmar no main se é do tipo P
+        equip.add(e);
     }
 
     @Override

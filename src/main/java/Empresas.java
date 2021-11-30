@@ -5,7 +5,7 @@ public class Empresas {
     private String morada;
     private int nif; //unico
     private ArrayList<Funcionarios> empregados = new ArrayList<>();
-
+    //falta metodo para adicionar funcionario para o Arraylist
 
     public Empresas() {}
 

@@ -9,11 +9,13 @@ public class Hidroeletrica extends Central {
     public Hidroeletrica(){}
 
 
-    public Hidroeletrica(String designacao, String localidade, int anoInicio, int potencia, ArrayList<String> emp, String cursoAgua, String aproveitamento, int capacidade) {
-        super(designacao, localidade, anoInicio, potencia, emp);
+    public Hidroeletrica(int numIdentificacao, String designacao, String localidade, int anoInicio, int potencia,
+                         int nifDonos, String cursoAgua, String aproveitamento, int capacidade) {
+        super(numIdentificacao, designacao, localidade, anoInicio, potencia);
         this.cursoAgua = cursoAgua;
         this.aproveitamento = aproveitamento;
         this.capacidade = capacidade;
+        super.setDonos(nifDonos);
     }
 
     @Override
