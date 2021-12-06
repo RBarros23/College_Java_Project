@@ -1,7 +1,8 @@
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class Central {
+public class Central implements Serializable{
     private int numIdentificacao; //unico e sequencial definido no main
     private String designacao;
     private String localidade;

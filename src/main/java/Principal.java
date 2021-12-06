@@ -1,3 +1,6 @@
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import util.Consola;
 
@@ -9,13 +12,13 @@ public class Principal {
         ArrayList<Fotovoltaica> fotovolt = new ArrayList<>();
         ArrayList<Eolica> eolica = new ArrayList<>();
 
-        int contCentrais = 0;
+        int contCentrais = 0, contHidro = 0, contFotovolt = 0, contEolica = 0;
         int opcao, op;
         do {
             opcao = menuInicial();
             switch (opcao) {
                 case 1: //Inserir e consultar empresas.
-                    insConslt();
+                    insConslt(emp);
                     break;
                 case 2: //Inserir e consultar (por nif) funcionários
                     break;
@@ -78,14 +81,14 @@ public class Principal {
         return Consola.lerInt("Opção: ",0,4);
     }
 
-    public static void insConslt(){
+    public static void insConslt(ArrayList<Empresas> emp){
         int opcao = 0;
         opcao = Consola.lerInt("Inserir (1) ou Consultar (2) (Voltar ao menu principal (0)): ", 0, 2);
         switch (opcao){
             case 0:
                 break;
             case 1:
-                inserirEmp();
+                inserirEmp(emp);
                 break;
             case 2:
                 break;
@@ -94,25 +97,35 @@ public class Principal {
 
     public static void inserirEmp(ArrayList<Empresas> emp){
         String nome, morada;
-        int nif;
+        int nif = 0;
+        boolean check = true;
+
         nome = Consola.lerString("Nome da empresa: ");
         morada = Consola.lerString("Morada da empresa: ");
-        nif = Consola.lerInt("NIF da empresa: ", 0,999999999);
-        for(int i = 0; i < emp.size(); i++){
-            if(nif == emp.get(i).getNif()) {
-                System.out.println("Já existe uma empresa com esse NIF!");
+        do {
+            nif = Consola.lerInt("NIF da empresa:(Cancelar -1)", -1, 999999999);
+            if(nif == -1) {
+                check = false;
             }
-        }
+            else {
+                check = verNifEmp(emp, nif);
+                if(!check){
+                    emp.add(new Empresas(nome, morada, nif));
+                    System.out.println(emp.toString());
+                }
+            }
+        }while(check);
+
     }
 
     public static Boolean verNifEmp(ArrayList<Empresas> e, int nif){
         for(Empresas i : e){
             if(nif == i.getNif()){
                 System.out.println("Já existe uma empresa com este NIF associado!");
-                return false;
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     public static Boolean verNifTrab(ArrayList<Funcionarios> f, int nif) {
@@ -170,7 +183,17 @@ public class Principal {
             System.out.println("Não existem centrais/empresas, adicione primeiro!");
     }
 
+    public void gravarFicheiro(ArrayList<Empresas> emp, ArrayList<Hidroeletrica> hidro, ArrayList<Fotovoltaica> fotovolt, ArrayList<Eolica> eolica){
+        try{
+            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("Gestao.dat"));
+            out.writeObject(emp);
+            out.writeObject(hidro);
+            out.writeObject(fotovolt);
+            out.writeObject(eolica);
+        }catch (IOException ex){
 
+        }
+    }
 
 }
 

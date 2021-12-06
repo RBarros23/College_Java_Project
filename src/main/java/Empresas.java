@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Empresas {
+public class Empresas implements Serializable {
     private String nome;
     private String morada;
     private int nif; //unico

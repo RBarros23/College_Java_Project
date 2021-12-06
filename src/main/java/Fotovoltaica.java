@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Fotovoltaica extends Central{
+public class Fotovoltaica extends Central implements Serializable {
     private int area;
     private int numPaineis;
     private int potPainel; //potencia de cada painel

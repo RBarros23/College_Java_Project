@@ -1,4 +1,6 @@
-public class Equipamento {
+import java.io.Serializable;
+
+public class Equipamento implements Serializable {
     private String designacao; //Única
     private String fabricante;
     private String modelo;

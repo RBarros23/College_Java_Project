@@ -1,4 +1,6 @@
-public class Funcionarios {
+import java.io.Serializable;
+
+public class Funcionarios implements Serializable{
     private String nome;
     private String morada;
     private String funcao;

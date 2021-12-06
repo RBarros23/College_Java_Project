@@ -1,6 +1,6 @@
-import java.util.ArrayList;
+import java.io.Serializable;
 
-public class Hidroeletrica extends Central {
+public class Hidroeletrica extends Central implements Serializable {
     private String cursoAgua;
     private String aproveitamento; //por exemplo albufeira
     private int capacidade; //Mm^3
