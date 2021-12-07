@@ -5,7 +5,7 @@ public class Empresas implements Serializable {
     private String nome;
     private String morada;
     private int nif; //unico
-    private ArrayList<Funcionarios> empregados = new ArrayList<>();
+    private ArrayList<Funcionarios> empregados = new ArrayList<Funcionarios>();
     //falta metodo para adicionar funcionario para o Arraylist
 
     public Empresas() {}

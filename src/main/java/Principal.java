@@ -23,11 +23,9 @@ public class Principal {
 //            hidro = (ArrayList<Hidroeletrica>) in.readObject();
 //            fotovolt = (ArrayList<Fotovoltaica>) in.readObject();
 //            eolica = (ArrayList<Eolica>) in.readObject();
-
             in.close();
             carregarGestao.close();
         } catch (IOException | ClassNotFoundException ex) {
-
             //System.out.println(ex.getMessage());
         }
 
@@ -35,7 +33,7 @@ public class Principal {
             opcao = menuInicial();
             switch (opcao) {
                 case 1: //Inserir e consultar empresas.
-                    insConslt(emp);
+                    insConsEmpresa(emp);
                     break;
                 case 2: //Inserir e consultar (por nif) funcionários
                     insConsEmpregado(emp);
@@ -100,7 +98,7 @@ public class Principal {
         return Consola.lerInt("Opção: ",0,4);
     }
 
-    public static void insConslt(ArrayList<Empresas> emp){
+    public static void insConsEmpresa(ArrayList<Empresas> emp){
         int opcao = 0;
         opcao = Consola.lerInt("Inserir (1) ou Consultar (2) (Voltar ao menu principal (0)): ", 0, 2);
         switch (opcao){
@@ -161,64 +159,81 @@ public class Principal {
         int opcao = 0;
         opcao = Consola.lerInt("Inserir (1) ou Consultar por NIF (2) (Voltar ao menu principal (0)): ", 0, 2);
         switch (opcao){
-            case 0:
-                break;
+//            case 0:
+//                break;
             case 1:
                 inserirEmpregado(emp);
                 break;
             case 2:
-                for(Empresas empresas : emp){
-                    empresas.getEmpregados();
-                }
+                //System.out.println(emp.get(0).getEmpregados().size());
+                consultarEmpregado(emp);
                 break;
         }
     }
 
     public static void inserirEmpregado(ArrayList<Empresas> emp){
-        String nome, morada, funcao, empresa;
-        int nif, telefone, contador = 0, indice = 0, nifEmpresa;
+        String nome, morada, funcao;
+        int nifFuncionario, telefone, contador = -1, indice = 0, nifEmpresa, dia = 0, mes = 0, ano = 0;
         Calendar dataNascimento = Calendar.getInstance();
         boolean check = true;
 
 
         do {
-            empresa = Consola.lerString("Empresa em que trabalha: ");
-            for (int i = 0; i < emp.size(); i++) {
-                if (emp.get(i).getNome().equalsIgnoreCase(empresa)) {
-                    contador ++;
-                    indice = i;
+            nifEmpresa = Consola.lerInt("NIF da empresa: ",1,999999999);
 
+            for(int i = 0; i < emp.size(); i++){
+                if(emp.get(i).getNif() == nifEmpresa){
+                    indice = i;
+                    i = emp.size();
+                    contador = 0;
                 }
             }
-            if(contador > 1){
-                    System.out.println("Existe mais que uma empresa com esse nome!");
-                    System.out.println("Escreva o nif da empresa desejada.");
-                    for (int j = 0; j < emp.size(); j++) {
-                        if (emp.get(j).getNome().equalsIgnoreCase(empresa)) {
-                            emp.get(j).toString();
-                        }
-                    }
-                    nifEmpresa = Consola.lerInt("NIF: ", 1, 999999999);
-            }
-            if(contador == 0)
-                System.out.println("Não existe nenhuma empresa com esse nome!");
-        }while(contador == 0);
+            if(contador == -1)
+                System.out.println("Não existe nenhuma empresa com esse NIF!");
+        }while(contador == -1);
+
 
         do{
-            nif = Consola.lerInt("NIF: ", 0, 999999999);
+            nifFuncionario = Consola.lerInt("NIF do trabalhador: ", 1, 999999999);
             for(int i = 0; i < emp.size(); i++) {
-                check = verNifTrab(emp.get(i).getEmpregados(), nif);
+                check = verNifTrab(emp.get(i).getEmpregados(), nifFuncionario);
             }
         }while(!check);
 
-        if(!check){
+        if(check){
             nome = Consola.lerString("Nome: ");
             morada = Consola.lerString("Morada: ");
             funcao = Consola.lerString("Função: ");
             telefone = Consola.lerInt("Telefone: ", 1, 999999999);
+            dia = Consola.lerInt("Dia de nascimento: ", 1, 31);
+            mes = Consola.lerInt("Mes de nascimento: ", 1, 12);
+            ano = Consola.lerInt("Ano nascimento: ",1910, 2022);
+            emp.get(indice).setEmpregados(new Funcionarios(nome, morada, funcao, nifFuncionario, telefone, ano, mes, dia));
+
 
         }
 
+    }
+
+    public static void consultarEmpregado(ArrayList<Empresas> emp){
+        int nif, contador = 0;
+        nif = Consola.lerInt("NIF do trabalhador que quer procurar: ", 1, 999999999);
+        for(int i = 0; i < emp.size(); i++){
+            for(int j = 0 ; j < emp.get(i).getEmpregados().size(); j++) {
+                if (emp.get(i).getEmpregados().get(j).getNif() == nif) {
+                    System.out.println(emp.get(i).getEmpregados().get(j).toString());
+                    contador++;
+                    System.out.println("i = " +i);
+                    System.out.println("j= " +j);
+                    j = emp.get(i).getEmpregados().size();
+                    i = emp.size();
+                    break;
+
+                }
+            }
+        }
+        if(contador == 0)
+            System.out.println("Não existe nenhum trabalhador com esse NIF!");
     }
 
     public static void assosEmpresa(ArrayList<Empresas> emp, ArrayList<Hidroeletrica> hidro, ArrayList<Fotovoltaica> fotovolt, ArrayList<Eolica> eolica, int contaCentrais) {
