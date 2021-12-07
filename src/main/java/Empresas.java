@@ -22,16 +22,23 @@ public class Empresas implements Serializable {
         return nif;
     }
 
+    public void setEmpregados(Funcionarios emp) {
+        empregados.add(emp);
+    }
+
     public ArrayList<Funcionarios> getEmpregados() {
         return empregados;
     }
 
     @Override
     public String toString() {
-        return "Empresas{" +
-                "nome='" + nome + '\'' +
-                ", morada='" + morada + '\'' +
-                ", nif=" + nif +
-                '}';
+
+        return "\nEmpresa:\n" + "Nome: " + nome + "\nMorada: " + morada + "\nNIF: " + nif ;
+
+//                "Empresas{" +
+//                "nome='" + nome + '\'' +
+//                ", morada='" + morada + '\'' +
+//                ", nif=" + nif +
+//                '}';
     }
 }

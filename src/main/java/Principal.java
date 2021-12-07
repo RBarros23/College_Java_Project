@@ -1,6 +1,4 @@
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.ArrayList;
 import util.Consola;
 
@@ -14,6 +12,21 @@ public class Principal {
 
         int contCentrais = 0, contHidro = 0, contFotovolt = 0, contEolica = 0;
         int opcao, op;
+
+        try {
+            FileInputStream carregarGestao = new FileInputStream("Gestao.dat");
+            ObjectInputStream in = new ObjectInputStream(carregarGestao);
+            emp = (ArrayList<Empresas>) in.readObject();
+//            hidro = (ArrayList<Hidroeletrica>) in.readObject();
+//            fotovolt = (ArrayList<Fotovoltaica>) in.readObject();
+//            eolica = (ArrayList<Eolica>) in.readObject();
+
+            in.close();
+            carregarGestao.close();
+        } catch (IOException | ClassNotFoundException ex) {
+            System.out.println(ex.getMessage());
+        }
+
         do {
             opcao = menuInicial();
             switch (opcao) {
@@ -21,6 +34,7 @@ public class Principal {
                     insConslt(emp);
                     break;
                 case 2: //Inserir e consultar (por nif) funcionários
+                    insConsEmp(emp);
                     break;
                 case 3: //Inserir, consultar (por tipo) e alterar dados de tipos de equipamento
                     break;
@@ -28,7 +42,7 @@ public class Principal {
                         //sempre que adicionar uma central incrementar contCentrais e associar ao numIdentificacao
                     break;
                 case 5: //Associar empresas a uma central
-                    assosEmpresa( emp,  hidro,  fotovolt,  eolica, contCentrais);
+                    assosEmpresa(emp, hidro, fotovolt, eolica, contCentrais);
                     break;
                 case 6: //Associar valor de produção energética anual a uma central
                     break;
@@ -50,6 +64,7 @@ public class Principal {
                     }while(op != 0);
                     break;
                 case 8: //Gravar dados
+                    gravarFicheiro(emp, hidro, fotovolt, eolica);
                     break;
                 case 0: //Gravar e sair
                     break;
@@ -91,6 +106,7 @@ public class Principal {
                 inserirEmp(emp);
                 break;
             case 2:
+                System.out.println(emp.toString());
                 break;
         }
     }
@@ -111,7 +127,6 @@ public class Principal {
                 check = verNifEmp(emp, nif);
                 if(!check){
                     emp.add(new Empresas(nome, morada, nif));
-                    System.out.println(emp.toString());
                 }
             }
         }while(check);
@@ -138,6 +153,23 @@ public class Principal {
         return true;
     }
 
+    public static void insConsEmp(ArrayList<Empresas> emp){
+        int opcao = 0;
+        opcao = Consola.lerInt("Inserir (1) ou Consultar por NIF (2) (Voltar ao menu principal (0)): ", 0, 2);
+        switch (opcao){
+            case 0:
+                break;
+            case 1:
+                inserirEmpregado(emp);
+                break;
+            case 2:
+                break;
+        }
+    }
+
+    public static void inserirEmpregado(ArrayList<Empresas> emp){
+
+    }
 
     public static void assosEmpresa(ArrayList<Empresas> emp, ArrayList<Hidroeletrica> hidro, ArrayList<Fotovoltaica> fotovolt, ArrayList<Eolica> eolica, int contaCentrais) {
         int opcao = -2, contador = 0, opcaoCentral = 0, contaAdi = 0;
@@ -183,15 +215,30 @@ public class Principal {
             System.out.println("Não existem centrais/empresas, adicione primeiro!");
     }
 
-    public void gravarFicheiro(ArrayList<Empresas> emp, ArrayList<Hidroeletrica> hidro, ArrayList<Fotovoltaica> fotovolt, ArrayList<Eolica> eolica){
+    public static void gravarFicheiro(ArrayList<Empresas> emp, ArrayList<Hidroeletrica> hidro, ArrayList<Fotovoltaica> fotovolt, ArrayList<Eolica> eolica){
         try{
-            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("Gestao.dat"));
+            FileOutputStream gestao = new FileOutputStream("Gestao.dat");
+            ObjectOutputStream out = new ObjectOutputStream(gestao);
             out.writeObject(emp);
-            out.writeObject(hidro);
-            out.writeObject(fotovolt);
-            out.writeObject(eolica);
-        }catch (IOException ex){
+            out.close();
+            gestao.close();
+            System.out.println("Gravado!");
+        }catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
 
+    public static void lerFicheiro(ArrayList<Empresas> emp) { //Meter este codigo ao dentro do main ao iniciar o programa
+
+        try {
+            FileInputStream carregarGestao = new FileInputStream("Gestao.dat");
+            ObjectInputStream in = new ObjectInputStream(carregarGestao);
+            emp = (ArrayList<Empresas>) in.readObject();
+            in.close();
+            carregarGestao.close();
+            System.out.println("Ficheiro carregado!");
+        } catch (IOException | ClassNotFoundException ex) {
+            System.out.println(ex.getMessage());
         }
     }
 
