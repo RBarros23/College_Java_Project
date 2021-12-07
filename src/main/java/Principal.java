@@ -1,5 +1,8 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Objects;
+
 import util.Consola;
 
 public class Principal {
@@ -24,7 +27,8 @@ public class Principal {
             in.close();
             carregarGestao.close();
         } catch (IOException | ClassNotFoundException ex) {
-            System.out.println(ex.getMessage());
+
+            //System.out.println(ex.getMessage());
         }
 
         do {
@@ -34,7 +38,7 @@ public class Principal {
                     insConslt(emp);
                     break;
                 case 2: //Inserir e consultar (por nif) funcionários
-                    insConsEmp(emp);
+                    insConsEmpregado(emp);
                     break;
                 case 3: //Inserir, consultar (por tipo) e alterar dados de tipos de equipamento
                     break;
@@ -103,7 +107,7 @@ public class Principal {
             case 0:
                 break;
             case 1:
-                inserirEmp(emp);
+                inserirEmpresa(emp);
                 break;
             case 2:
                 System.out.println(emp.toString());
@@ -111,7 +115,7 @@ public class Principal {
         }
     }
 
-    public static void inserirEmp(ArrayList<Empresas> emp){
+    public static void inserirEmpresa(ArrayList<Empresas> emp){
         String nome, morada;
         int nif = 0;
         boolean check = true;
@@ -119,8 +123,8 @@ public class Principal {
         nome = Consola.lerString("Nome da empresa: ");
         morada = Consola.lerString("Morada da empresa: ");
         do {
-            nif = Consola.lerInt("NIF da empresa:(Cancelar -1)", -1, 999999999);
-            if(nif == -1) {
+            nif = Consola.lerInt("NIF da empresa:(Cancelar 0): ", 0, 999999999);
+            if(nif == 0) {
                 check = false;
             }
             else {
@@ -153,7 +157,7 @@ public class Principal {
         return true;
     }
 
-    public static void insConsEmp(ArrayList<Empresas> emp){
+    public static void insConsEmpregado(ArrayList<Empresas> emp){
         int opcao = 0;
         opcao = Consola.lerInt("Inserir (1) ou Consultar por NIF (2) (Voltar ao menu principal (0)): ", 0, 2);
         switch (opcao){
@@ -163,11 +167,57 @@ public class Principal {
                 inserirEmpregado(emp);
                 break;
             case 2:
+                for(Empresas empresas : emp){
+                    empresas.getEmpregados();
+                }
                 break;
         }
     }
 
     public static void inserirEmpregado(ArrayList<Empresas> emp){
+        String nome, morada, funcao, empresa;
+        int nif, telefone, contador = 0, indice = 0, nifEmpresa;
+        Calendar dataNascimento = Calendar.getInstance();
+        boolean check = true;
+
+
+        do {
+            empresa = Consola.lerString("Empresa em que trabalha: ");
+            for (int i = 0; i < emp.size(); i++) {
+                if (emp.get(i).getNome().equalsIgnoreCase(empresa)) {
+                    contador ++;
+                    indice = i;
+
+                }
+            }
+            if(contador > 1){
+                    System.out.println("Existe mais que uma empresa com esse nome!");
+                    System.out.println("Escreva o nif da empresa desejada.");
+                    for (int j = 0; j < emp.size(); j++) {
+                        if (emp.get(j).getNome().equalsIgnoreCase(empresa)) {
+                            emp.get(j).toString();
+                        }
+                    }
+                    nifEmpresa = Consola.lerInt("NIF: ", 1, 999999999);
+            }
+            if(contador == 0)
+                System.out.println("Não existe nenhuma empresa com esse nome!");
+        }while(contador == 0);
+
+        do{
+            nif = Consola.lerInt("NIF: ", 0, 999999999);
+            for(int i = 0; i < emp.size(); i++) {
+                check = verNifTrab(emp.get(i).getEmpregados(), nif);
+            }
+        }while(!check);
+
+        if(!check){
+            nome = Consola.lerString("Nome: ");
+            morada = Consola.lerString("Morada: ");
+            funcao = Consola.lerString("Função: ");
+            telefone = Consola.lerInt("Telefone: ", 1, 999999999);
+
+        }
 
     }
 

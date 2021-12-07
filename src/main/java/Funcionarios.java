@@ -1,4 +1,6 @@
 import java.io.Serializable;
+import java.util.Calendar;
+
 
 public class Funcionarios implements Serializable{
     private String nome;
@@ -7,7 +9,7 @@ public class Funcionarios implements Serializable{
     private int nif; //Unico
     private int telefone;
     private String empresa;
-    //falta decidir o tipo de dados para a data de nascimento
+    Calendar dataNascimento = Calendar.getInstance();
 
     public Funcionarios(){}
 
@@ -20,6 +22,13 @@ public class Funcionarios implements Serializable{
         this.empresa = empresa;
     }
 
+    public void setDataNascimento(int ano, int mes, int dia) {
+        dataNascimento.set(ano,mes, dia);
+    }
+
+    public void getDataNascimento() {
+        System.out.println(dataNascimento.get(Calendar.DAY_OF_MONTH) + "/" + dataNascimento.get(Calendar.MONTH) + "/" + dataNascimento.get(Calendar.YEAR));
+    }
 
     public int getNif() {
         return nif;

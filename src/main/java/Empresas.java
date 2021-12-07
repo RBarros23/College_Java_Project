@@ -17,6 +17,9 @@ public class Empresas implements Serializable {
         this.nif = nif;
     }
 
+    public String getNome() {
+        return nome;
+    }
 
     public int getNif() {
         return nif;
