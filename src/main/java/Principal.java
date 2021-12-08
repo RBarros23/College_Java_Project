@@ -1,7 +1,5 @@
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Objects;
 
 import util.Consola;
 
@@ -12,8 +10,10 @@ public class Principal {
         ArrayList<Hidroeletrica> hidro = new ArrayList<>();
         ArrayList<Fotovoltaica> fotovolt = new ArrayList<>();
         ArrayList<Eolica> eolica = new ArrayList<>();
+        int totalCentrais;
+        totalCentrais = hidro.size() + fotovolt.size() + eolica.size();
 
-        int contCentrais = 0, contHidro = 0, contFotovolt = 0, contEolica = 0;
+        int contHidro = hidro.size(), contFotovolt = fotovolt.size(), contEolica = eolica.size();
         int opcao, op;
 
         try {
@@ -26,11 +26,10 @@ public class Principal {
             in.close();
             carregarGestao.close();
         } catch (IOException | ClassNotFoundException ex) {
-            //System.out.println(ex.getMessage());
         }
 
         do {
-            opcao = menuInicial();
+            opcao = menuInicial(totalCentrais, hidro.size(), fotovolt.size(), eolica.size());
             switch (opcao) {
                 case 1: //Inserir e consultar empresas.
                     insConsEmpresa(emp);
@@ -44,7 +43,7 @@ public class Principal {
                         //sempre que adicionar uma central incrementar contCentrais e associar ao numIdentificacao
                     break;
                 case 5: //Associar empresas a uma central
-                    assosEmpresa(emp, hidro, fotovolt, eolica, contCentrais);
+                    assosEmpresa(emp, hidro, fotovolt, eolica, totalCentrais);
                     break;
                 case 6: //Associar valor de produção energética anual a uma central
                     break;
@@ -74,9 +73,9 @@ public class Principal {
         }while(opcao != 0);
     }
 
-    public static int menuInicial(){
-        System.out.println("Número de centrais existentes:");
-        System.out.println("Hidroeletrica: " + "Fotovoltaicas: " + "Eolica: " ); //falta contadores de centrais // utilizar tamanho das listas
+    public static int menuInicial(int totalCentrais, int totalHidro, int totalFotovol, int totalEolica){
+        System.out.println("Número de centrais existentes: " + totalCentrais);
+        System.out.println("Hidroeletrica: "+ totalHidro + " Fotovoltaicas: " + totalFotovol + " Eolica: " +totalEolica );
         System.out.println("1 - Inserir e consultar (todas) empresas.");
         System.out.println("2 - Inserir e consultar (por nif) funcionários.");
         System.out.println("3 - Inserir, consultar (por tipo) e alterar dados de tipos de equipamento.");
@@ -173,9 +172,9 @@ public class Principal {
 
     public static void inserirEmpregado(ArrayList<Empresas> emp){
         String nome, morada, funcao;
-        int nifFuncionario, telefone, contador = -1, indice = 0, nifEmpresa, dia = 0, mes = 0, ano = 0;
-        Calendar dataNascimento = Calendar.getInstance();
+        int nifFuncionario, telefone, contador = -1, indice = 0, nifEmpresa;
         boolean check = true;
+        int dataNascimento[];
 
 
         do {
@@ -205,10 +204,8 @@ public class Principal {
             morada = Consola.lerString("Morada: ");
             funcao = Consola.lerString("Função: ");
             telefone = Consola.lerInt("Telefone: ", 1, 999999999);
-            dia = Consola.lerInt("Dia de nascimento: ", 1, 31);
-            mes = Consola.lerInt("Mes de nascimento: ", 1, 12);
-            ano = Consola.lerInt("Ano nascimento: ",1910, 2022);
-            emp.get(indice).setEmpregados(new Funcionarios(nome, morada, funcao, nifFuncionario, telefone, ano, mes, dia));
+            dataNascimento = lerDataNascimento(); //[0] = dia, [1] = mes, [2] = ano
+            emp.get(indice).setEmpregados(new Funcionarios(nome, morada, funcao, nifFuncionario, telefone, dataNascimento[0], dataNascimento[1], dataNascimento[2]));
 
 
         }
@@ -216,30 +213,39 @@ public class Principal {
     }
 
     public static void consultarEmpregado(ArrayList<Empresas> emp){
-        int nif, contador = 0;
-        nif = Consola.lerInt("NIF do trabalhador que quer procurar: ", 1, 999999999);
-        for(int i = 0; i < emp.size(); i++){
-            for(int j = 0 ; j < emp.get(i).getEmpregados().size(); j++) {
-                if (emp.get(i).getEmpregados().get(j).getNif() == nif) {
-                    System.out.println(emp.get(i).getEmpregados().get(j).toString());
-                    contador++;
-                    System.out.println("i = " +i);
-                    System.out.println("j= " +j);
-                    j = emp.get(i).getEmpregados().size();
-                    i = emp.size();
-                    break;
+        int nif, contador = 0, contaEmpregados = 0;
 
+        for(int i = 0; i < emp.size(); i++){
+            if(emp.get(i).getEmpregados().size() != 0)
+                contaEmpregados ++;
+        }
+
+        if(contaEmpregados != 0) {
+            nif = Consola.lerInt("NIF do trabalhador que quer procurar: ", 1, 999999999);
+            for (int i = 0; i < emp.size(); i++) {
+                for (int j = 0; j < emp.get(i).getEmpregados().size(); j++) {
+                    if (emp.get(i).getEmpregados().get(j).getNif() == nif) {
+                        System.out.println(emp.get(i).getEmpregados().get(j).toString());
+                        contador++;
+                        j = emp.get(i).getEmpregados().size();
+                        i = emp.size();
+                        break;
+
+                    }
                 }
             }
+            if (contador == 0)
+                System.out.println("Não existe nenhum trabalhador com esse NIF!");
         }
-        if(contador == 0)
-            System.out.println("Não existe nenhum trabalhador com esse NIF!");
+        else{
+            System.out.println("Ainda não existem funcionários registados!");
+        }
     }
 
-    public static void assosEmpresa(ArrayList<Empresas> emp, ArrayList<Hidroeletrica> hidro, ArrayList<Fotovoltaica> fotovolt, ArrayList<Eolica> eolica, int contaCentrais) {
+    public static void assosEmpresa(ArrayList<Empresas> emp, ArrayList<Hidroeletrica> hidro, ArrayList<Fotovoltaica> fotovolt, ArrayList<Eolica> eolica, int totalCentrais) {
         int opcao = -2, contador = 0, opcaoCentral = 0, contaAdi = 0;
 
-        if (emp.size() != 0 && contaCentrais != 0) {
+        if (emp.size() != 0 && totalCentrais != 0) {
             do {
                 opcao = Consola.lerInt("Insira NIF da empresa (-1 para sair): ", -1, 999999999);
                 for (int i = 0; i < emp.size(); i++) {
@@ -253,19 +259,19 @@ public class Principal {
                 else {
                     do {
                         opcaoCentral = Consola.lerInt("Insira numero de identificacao da central (-1 para sair): ", -1, 999999999);
-                        for (int j = 0; j < contaCentrais; j++) {
+                        for (int j = 0; j < totalCentrais; j++) {
                             if (opcaoCentral == hidro.get(j).getNumIdentificacao()) {
                                 hidro.get(j).setDonos(emp.get(contador));
                                 contaAdi++;
-                                j = contaCentrais;
+                                j = totalCentrais;
                             } else if (opcaoCentral == fotovolt.get(j).getNumIdentificacao()) {
                                 fotovolt.get(j).setDonos(emp.get(contador));
                                 contaAdi++;
-                                j = contaCentrais;
+                                j = totalCentrais;
                             } else if (opcaoCentral == eolica.get(j).getNumIdentificacao()) {
                                 eolica.get(j).setDonos(emp.get(contador));
                                 contaAdi++;
-                                j = contaCentrais;
+                                j = totalCentrais;
                             }
                         }
                         if (contaAdi == 0)
@@ -305,6 +311,30 @@ public class Principal {
         } catch (IOException | ClassNotFoundException ex) {
             System.out.println(ex.getMessage());
         }
+    }
+
+    public static int[] lerDataNascimento(){
+        int maxDiasMes,dia, mes, ano;
+        ano = Consola.lerInt("Ano de nascimento: ", 1910, 2022);
+        mes = Consola.lerInt("Mes de nascimento: ", 1, 12);
+        switch (mes){
+            case 4, 6, 9, 11:
+                maxDiasMes = 30;
+                break;
+            case 2:
+                if((ano % 400 == 0) || (ano % 4 == 0 && ano % 100 != 0)){
+                    maxDiasMes = 29;
+                }
+                else{
+                    maxDiasMes = 28;
+                }
+                break;
+            default:
+                maxDiasMes = 31;
+        }
+        dia = Consola.lerInt("Dia de nascimento: ", 1, maxDiasMes);
+        int data[] = {dia, mes, ano};
+        return data;
     }
 
 }

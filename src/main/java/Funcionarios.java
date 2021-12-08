@@ -11,7 +11,7 @@ public class Funcionarios implements Serializable{
 
     public Funcionarios(){}
 
-    public Funcionarios(String nm, String morada, String funcao, int nif, int tele, int ano, int mes, int dia){
+    public Funcionarios(String nm, String morada, String funcao, int nif, int tele, int dia, int mes, int ano){
         nome = nm;
         this.morada = morada;
         this.funcao = funcao;
