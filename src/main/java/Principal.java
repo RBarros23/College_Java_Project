@@ -3,6 +3,7 @@ import java.util.ArrayList;
 
 import util.Consola;
 
+
 public class Principal {
 
     public static void main(String[] args) {
@@ -14,7 +15,6 @@ public class Principal {
         int totalCentrais;
         totalCentrais = hidro.size() + fotovolt.size() + eolica.size();
 
-        int contHidro = hidro.size(), contFotovolt = fotovolt.size(), contEolica = eolica.size();
         int opcao, op;
 
         try {
@@ -39,7 +39,10 @@ public class Principal {
                     insConsEmpregado(emp);
                     break;
                 case 3: //Inserir, consultar (por tipo) e alterar dados de tipos de equipamento
+                    //gerirEquipamentos.insConsultarEquipamentos(equipamentos, fotovolt, eolica);
+                    //System.out.println(equipamentos.toString());
                     insConsultarEquipamentos(equipamentos, fotovolt, eolica);
+                    System.out.println(equipamentos.toString());
                     break;
                 case 4: //Inserir, consultar (por localidade) centrais
                         //sempre que adicionar uma central incrementar contCentrais e associar ao numIdentificacao
@@ -288,16 +291,19 @@ public class Principal {
             System.out.println("Não existem centrais/empresas, adicione primeiro!");
     }
 
+    /////////////////////////////////////////////////
     public static void insConsultarEquipamentos(ArrayList<Equipamento> equipamentos, ArrayList<Fotovoltaica> fotovolt, ArrayList<Eolica> eolica){
         int opcao = Consola.lerInt("1 - Inserir, 2 - Consultar (por tipo) 3 - Alterar equipamento (0 para voltar)", 0, 3);
 
         switch (opcao){
             case 1:
                 insEquipamentos(equipamentos, fotovolt, eolica);
+                break;
             case 2:
-                consultarEquipTipo(fotovolt, eolica);
+                consultarEquipTipo(equipamentos);
                 break;
             case 3:
+                alterarEquip(equipamentos);
                 break;
 
         }
@@ -394,20 +400,75 @@ public class Principal {
 
     /**
      * Consultar equipamento por tipo (P ou A)*/
-    public static void consultarEquipTipo(ArrayList<Fotovoltaica> fotovolt, ArrayList<Eolica> eolica){
+    public static void consultarEquipTipo(ArrayList<Equipamento> equipamentos){
+        int contador = 0;
         String opcao = null;
         opcao = pedirTipoEquip();
 
         switch (opcao){
             case "P":
-                System.out.println(fotovolt.toString());
+                for(int i = 0; i < equipamentos.size(); i++){
+                    if(equipamentos.get(i).getTipo().equalsIgnoreCase(opcao)){
+                        System.out.println(equipamentos.get(i).toString());
+                        contador ++;
+                    }
+                }
+                if (contador == 0)
+                    System.out.println("Não existem equipamentos do tipo P");
                 break;
             case "A":
-                System.out.println(eolica.toString());
+                for(int i = 0; i < equipamentos.size(); i++){
+                    if(equipamentos.get(i).getTipo().equalsIgnoreCase(opcao)){
+                        System.out.println(equipamentos.get(i).toString());
+                        contador ++;
+                    }
+                }
+                if (contador == 0)
+                    System.out.println("Não existem equipamentos do tipo A");
+                break;
+            default:
                 break;
         }
     }
 
+    /**TERMINAR*/
+    public static void alterarEquip(ArrayList<Equipamento> equipamentos){
+        String designacao;
+        int check = 0, opcao = 0, indice = 0;
+        do {
+            designacao = Consola.lerString("Qual a designação do equipamento a alterar (0 para sair): ");
+            if(designacao.equalsIgnoreCase("0"))
+                break;
+            for(int i = 0; i < equipamentos.size(); i++){
+                if(equipamentos.get(i).getDesignacao().equalsIgnoreCase(designacao)){
+                    check ++;
+                    indice = i;
+                    i = equipamentos.size();
+                }
+            }
+            if(check == 0)
+                System.out.println("Não existe nenhum equipamento com essa designação!");
+        }while(check == 0);
+        if(!designacao.equalsIgnoreCase("0")) {
+            opcao = Consola.lerInt("Que informação quer alterar:\n" +
+                    "1 - Designação\n" + "2 - Fabricante\n" + "3 - Modelo\n" + "4 - Potencia\n" + "5 - Tipo", 1, 5);
+        }
+        switch (opcao){
+            case 1: //Designação
+                break;
+            case 2: //Fabricante
+                break;
+            case 3: //modelo
+                break;
+            case 4: //potencia
+                break;
+            case 5: //tipo
+                break;
+        }
+    }
+
+
+    ////////////////////////////////////////////////////
     public static void gravarFicheiro(ArrayList<Empresas> emp, ArrayList<Hidroeletrica> hidro, ArrayList<Fotovoltaica> fotovolt, ArrayList<Eolica> eolica){
         try{
             FileOutputStream gestao = new FileOutputStream("Gestao.dat");
