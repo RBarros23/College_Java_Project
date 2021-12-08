@@ -4,7 +4,7 @@ import java.util.ArrayList;
 public class Eolica extends Central implements Serializable {
     private int numAeroger;
     private int potAeroger; //potencia de cada aerogerador
-    private ArrayList<Equipamento> equip = new ArrayList<>();
+    private ArrayList<Equipamento> equip = new ArrayList<Equipamento>();
 
     public Eolica(){
         super();

@@ -14,4 +14,23 @@ public class Equipamento implements Serializable {
         this.potencia = potencia;
         this.tipo = tipo;
     }
+
+    public String getDesignacao() {
+        return designacao;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    @Override
+    public String toString() {
+        return "Equipamento{" +
+                "designacao='" + designacao + '\'' +
+                ", fabricante='" + fabricante + '\'' +
+                ", modelo='" + modelo + '\'' +
+                ", potencia=" + potencia +
+                ", tipo='" + tipo + '\'' +
+                '}';
+    }
 }

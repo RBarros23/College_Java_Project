@@ -5,7 +5,7 @@ public class Fotovoltaica extends Central implements Serializable {
     private int area;
     private int numPaineis;
     private int potPainel; //potencia de cada painel
-    private ArrayList<Equipamento> equip = new ArrayList<>();
+    private ArrayList<Equipamento> equip = new ArrayList<Equipamento>();
 
 
     public Fotovoltaica(){
