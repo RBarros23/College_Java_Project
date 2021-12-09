@@ -1,9 +1,10 @@
 import java.io.Serializable;
 import java.util.ArrayList;
-
+/*
+* Atualização do numero de aerogeradores e a potencia total é atualizada no gerirEquipamentos quando é associado um equipamento novo ao Arraylist equip
+* */
 public class Eolica extends Central implements Serializable {
     private int numAeroger;
-    private int potAeroger; //potencia de cada aerogerador
     private String tipoEquipamento = "A";
     private ArrayList<Equipamento> equip = new ArrayList<Equipamento>();
 
@@ -11,26 +12,29 @@ public class Eolica extends Central implements Serializable {
         super();
     }
 
-    public Eolica(int numIdentificacao, String designacao, String localidade, int[] dataInauguracao, int numAeroger, int potAeroger){
-        super(numIdentificacao, designacao, localidade, numAeroger*potAeroger, dataInauguracao);
-        this.numAeroger = numAeroger;
-        this.potAeroger = potAeroger;
+    public Eolica(int numIdentificacao, String designacao, String localidade, int[] dataInauguracao){
+        super(numIdentificacao, designacao, localidade, dataInauguracao);
     }
 
     @Override
     public String toString() {
-        System.out.println("Central Hidroeletrica");
-        System.out.println("Nº de aerogeradores: " + numAeroger);
-        System.out.println("Potencia de cada aerogerador: " + potAeroger);
-        return super.toString();
-    }
-
-    public int getNumAeroger() {
-        return numAeroger;
-    }
-
-    public int getPotAeroger() {
-        return potAeroger;
+        if(getDonos().size() > 0) {
+            return "Designação: " + getDesignacao() +
+                    ", Numero de identificação: " + getNumIdentificacao() +
+                    ", Data da Inauguração: " + getdataInauguracao() +
+                    ", Localidade: " + getLocalidade() +
+                    ", Potencia instalada (MW): " + getPotencia() +
+                    ", Numero de Aerogeradores: " + numAeroger +
+                    ", Tipo de equipamentos instalados: " + tipoEquipamento +
+                    ", Donos: " + getDonos();
+        }
+        return "Designação: " + getDesignacao() +
+                ", Numero de identificação: " + getNumIdentificacao() +
+                ", Data da Inauguração: " + getdataInauguracao() +
+                ", Localidade: " + getLocalidade() +
+                ", Potencia instalada (MW): " + getPotencia() +
+                ", Numero de Aerogeradores: " + numAeroger +
+                ", Tipo de equipamentos instalados: " + tipoEquipamento;
     }
 
     public ArrayList<Equipamento> getEquip() {
@@ -43,5 +47,18 @@ public class Eolica extends Central implements Serializable {
 
     public void setDonos(Empresas donos){
         super.setDonos(donos);
+    }
+
+    public void setNumAeroger() {
+        numAeroger = equip.size();
+    }
+
+    public void setPotencia() {
+        int potencia = 0;
+        super.setPotencia(0);
+        for(Equipamento e: equip){
+            potencia += e.getPotencia();
+        }
+        super.setPotencia(potencia);
     }
 }

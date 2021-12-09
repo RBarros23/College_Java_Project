@@ -96,6 +96,8 @@ public class gerirEquipamentos {
             dataAssociacao = Principal.lerData();
             equipamentos.get(indiceEquip).setDataAssociado(dataAssociacao[0], dataAssociacao[1], dataAssociacao[2]);
             fotovolt.get(numCentral).addEquip(equipamentos.get(indiceEquip));
+            fotovolt.get(numCentral).setPotencia(); //atualizar potencia total
+            fotovolt.get(numCentral).setNumPaineis(); //atualizar num de paineis
             equipamentos.get(indiceEquip).setNumCentral(fotovolt.get(numCentral).getNumIdentificacao());
         }
         else{
@@ -109,6 +111,8 @@ public class gerirEquipamentos {
             dataAssociacao = Principal.lerData();
             equipamentos.get(indiceEquip).setDataAssociado(dataAssociacao[0], dataAssociacao[1], dataAssociacao[2]);
             eolica.get(numCentral).addEquip(equipamentos.get(indiceEquip));
+            eolica.get(numCentral).setPotencia(); //atualizar potencia total
+            eolica.get(numCentral).setNumAeroger();
             equipamentos.get(indiceEquip).setNumCentral(eolica.get(numCentral).getNumIdentificacao());
         }
     }

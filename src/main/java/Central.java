@@ -5,8 +5,8 @@ public class Central implements Serializable{
     private int numIdentificacao; //unico e sequencial definido no main
     private String designacao;
     private String localidade;
-    private int anoInicio;
     private int potencia; //potencia instalada
+    private int potenciaProduzida; //potencia produzida desde que foi inaugurada
     private ArrayList<Empresas> donos = new ArrayList<>();
     int[] dataInauguracao;
 
@@ -52,12 +52,12 @@ public class Central implements Serializable{
         return localidade;
     }
 
-    public int getAnoInicio() {
-        return anoInicio;
-    }
-
     public int getPotencia() {
         return potencia;
+    }
+
+    public int getPotenciaProduzida() {
+        return potenciaProduzida;
     }
 
     public ArrayList<Empresas> getDonos() {

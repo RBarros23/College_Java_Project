@@ -4,22 +4,23 @@ import java.util.ArrayList;
 
 public class gerirCentrais {
 
-    public static void insConsulCentrais(ArrayList<Hidroeletrica> hidro, ArrayList<Fotovoltaica> fotovolt, ArrayList<Eolica> eolica, ArrayList<Empresas> emp, ArrayList<Equipamento> equipamentos){
+    public static void insConsulCentrais(ArrayList<Hidroeletrica> hidro, ArrayList<Fotovoltaica> fotovolt, ArrayList<Eolica> eolica){
         int opcao;
         opcao = Consola.lerInt("1 - Inserir central, 2 - Consultar centrais (por localidade) (0 para recuar) ", 0, 2);
         switch (opcao){
             case 1: //Inserir central
-                tipoCentralAdicionar(hidro, fotovolt, eolica, emp, equipamentos);
+                tipoCentralAdicionar(hidro, fotovolt, eolica);
                 break;
             case 2: // Consultar por localidade
+                procurarLocalidade(hidro, fotovolt, eolica);
                 break;
         }
     }
 
-    private static void tipoCentralAdicionar(ArrayList<Hidroeletrica> hidro, ArrayList<Fotovoltaica> fotovolt, ArrayList<Eolica> eolica, ArrayList<Empresas> emp, ArrayList<Equipamento> equipamentos){
+    private static void tipoCentralAdicionar(ArrayList<Hidroeletrica> hidro, ArrayList<Fotovoltaica> fotovolt, ArrayList<Eolica> eolica){
         int opcao;
         opcao = Consola.lerInt("Qual o tipo de central que deseja adicionar:\n" +
-                "1 - Hidroelétrica\n" + "2 - Fotovoltaica\n" + "3 - Eólica", 0, 3);
+                "1 - Hidroelétrica\n" + "2 - Fotovoltaica\n" + "3 - Eólica ", 0, 3);
         switch (opcao){
             case 1:
                 adicionarHidro(hidro);
@@ -28,6 +29,7 @@ public class gerirCentrais {
                 adicionarFoto(fotovolt);
                 break;
             case 3:
+                adicionarEolica(eolica);
                 break;
         }
     }
@@ -58,8 +60,63 @@ public class gerirCentrais {
         area = Consola.lerInt("Area da central: ", 1, 999999);
         designacao = Consola.lerString("Designação da central: ");
         localidade = Consola.lerString("Localidade: ");
+        System.out.println("Data de inicio de funcionamento:");
         dataInauguracao = Principal.lerData();
         fotovolt.add(new Fotovoltaica(numIdentificacao, designacao, localidade, dataInauguracao, area));
+    }
+
+    private static void adicionarEolica(ArrayList<Eolica> eolica){
+        int numIdentificacao;
+        String designacao, localidade;
+        int[] dataInauguracao;
+
+        numIdentificacao = eolica.size() + 1;
+        designacao = Consola.lerString("Designação da central: ");
+        localidade = Consola.lerString("Localização: ");
+        System.out.println("Data de inicio de funcionamento:");
+        dataInauguracao = Principal.lerData();
+        eolica.add(new Eolica(numIdentificacao, designacao, localidade, dataInauguracao));
+    }
+
+    private static void procurarLocalidade(ArrayList<Hidroeletrica> hidro, ArrayList<Fotovoltaica> fotovolt, ArrayList<Eolica> eolica){
+        int check = 0;
+        String localidade;
+        do {
+            localidade = Consola.lerString("Qual a localidade a procurar centrais: ");
+            for(Hidroeletrica h : hidro){
+                if(h.getLocalidade().equalsIgnoreCase(localidade)) {
+                    check++;
+                }
+            }
+            for(Fotovoltaica f : fotovolt){
+                if(f.getLocalidade().equalsIgnoreCase(localidade)){
+                    check ++;
+                }
+            }
+            for(Eolica e : eolica){
+                if(e.getLocalidade().equalsIgnoreCase(localidade)){
+                    check ++;
+                }
+            }
+            if(check == 0)
+                System.out.println("Não existe nenhuma central nessa localidade!");
+        }while(check == 0);
+
+        for(Hidroeletrica h : hidro){
+            if(h.getLocalidade().equalsIgnoreCase(localidade)) {
+                System.out.println(h.toString());
+            }
+        }
+        for(Fotovoltaica f : fotovolt){
+            if(f.getLocalidade().equalsIgnoreCase(localidade)){
+                System.out.println(f.toString());
+            }
+        }
+        for(Eolica e : eolica){
+            if(e.getLocalidade().equalsIgnoreCase(localidade)){
+                System.out.println(e.toString());
+            }
+        }
     }
 }
 

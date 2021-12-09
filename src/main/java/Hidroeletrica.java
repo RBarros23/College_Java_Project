@@ -44,18 +44,6 @@ public class Hidroeletrica extends Central implements Serializable {
                 ", Capacidade: " + capacidade;
     }
 
-    public String getCursoAgua() {
-        return cursoAgua;
-    }
-
-    public String getAproveitamento() {
-        return aproveitamento;
-    }
-
-    public int getCapacidade() {
-        return capacidade;
-    }
-
     public void setDonos(Empresas donos){
         super.setDonos(donos);
     }

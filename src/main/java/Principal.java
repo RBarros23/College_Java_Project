@@ -44,7 +44,7 @@ public class Principal {
                     break;
                 case 4: //Inserir, consultar (por localidade) centrais
                         //sempre que adicionar uma central incrementar contCentrais e associar ao numIdentificacao
-                    gerirCentrais.insConsulCentrais(hidro, fotovolt, eolica, emp, equipamentos);
+                    gerirCentrais.insConsulCentrais(hidro, fotovolt, eolica);
                     break;
                 case 5: //Associar empresas a uma central
                     assosEmpresa(emp, hidro, fotovolt, eolica, totalCentrais);
