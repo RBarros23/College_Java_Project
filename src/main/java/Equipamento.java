@@ -25,6 +25,10 @@ public class Equipamento implements Serializable {
         return tipo;
     }
 
+    public int getPotencia() {
+        return potencia;
+    }
+
     public int getNumCentral() {
         return numCentral;
     }

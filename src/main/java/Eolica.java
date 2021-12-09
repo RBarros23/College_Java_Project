@@ -4,14 +4,15 @@ import java.util.ArrayList;
 public class Eolica extends Central implements Serializable {
     private int numAeroger;
     private int potAeroger; //potencia de cada aerogerador
+    private String tipoEquipamento = "A";
     private ArrayList<Equipamento> equip = new ArrayList<Equipamento>();
 
     public Eolica(){
         super();
     }
 
-    public Eolica(int numIdentificacao, String designacao, String localidade, int anoInicio, int numAeroger, int potAeroger){
-        super(numIdentificacao, designacao, localidade, anoInicio, numAeroger*potAeroger);
+    public Eolica(int numIdentificacao, String designacao, String localidade, int[] dataInauguracao, int numAeroger, int potAeroger){
+        super(numIdentificacao, designacao, localidade, numAeroger*potAeroger, dataInauguracao);
         this.numAeroger = numAeroger;
         this.potAeroger = potAeroger;
     }

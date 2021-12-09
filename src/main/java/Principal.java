@@ -39,12 +39,12 @@ public class Principal {
                 case 2: //Inserir e consultar (por nif) funcionários
                     insConsEmpregado(emp);
                     break;
-                case 3: //Inserir, consultar (por tipo) e alterar dados de tipos de equipamento
+                case 3: //Inserir, associar e consultar (por tipo) e alterar dados de tipos de equipamento
                     gerirEquipamentos.insConsultarEquipamentos(equipamentos, fotovolt, eolica);
                     break;
                 case 4: //Inserir, consultar (por localidade) centrais
                         //sempre que adicionar uma central incrementar contCentrais e associar ao numIdentificacao
-                    gerirCentrais.insConsulCentrais(hidro, fotovolt, eolica);
+                    gerirCentrais.insConsulCentrais(hidro, fotovolt, eolica, emp, equipamentos);
                     break;
                 case 5: //Associar empresas a uma central
                     assosEmpresa(emp, hidro, fotovolt, eolica, totalCentrais);
@@ -83,7 +83,7 @@ public class Principal {
         System.out.println("Hidroeletrica: "+ totalHidro + " Fotovoltaicas: " + totalFotovol + " Eolica: " +totalEolica );
         System.out.println("1 - Inserir e consultar (todas) empresas.");
         System.out.println("2 - Inserir e consultar (por nif) funcionários.");
-        System.out.println("3 - Inserir, consultar (por tipo) e alterar dados de tipos de equipamento.");
+        System.out.println("3 - Inserir, associar, consultar (por tipo) e alterar dados de tipos de equipamento.");
         System.out.println("4 - Inserir, consultar (por localidade) centrais."); //Mostrar tambem a empresa que gere
         System.out.println("5 - Associar empresas a uma central.");
         System.out.println("6 - Associar valor de produção energética anual a uma central.");

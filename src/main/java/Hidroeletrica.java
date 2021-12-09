@@ -1,4 +1,5 @@
 import java.io.Serializable;
+import java.util.Arrays;
 
 public class Hidroeletrica extends Central implements Serializable {
     private String cursoAgua;
@@ -11,9 +12,9 @@ public class Hidroeletrica extends Central implements Serializable {
     }
 
 
-    public Hidroeletrica(int numIdentificacao, String designacao, String localidade, int anoInicio, int potencia,
+    public Hidroeletrica(int numIdentificacao, String designacao, String localidade, int potencia, int[] dataInauguracao,
                             String cursoAgua, String aproveitamento, int capacidade) {
-        super(numIdentificacao, designacao, localidade, anoInicio, potencia);
+        super(numIdentificacao, designacao, localidade, potencia, dataInauguracao);
         this.cursoAgua = cursoAgua;
         this.aproveitamento = aproveitamento;
         this.capacidade = capacidade;
@@ -21,11 +22,26 @@ public class Hidroeletrica extends Central implements Serializable {
 
     @Override
     public String toString() {
-        System.out.println("Central Hidroeletrica");
-        System.out.println("Curso de água: " + cursoAgua);
-        System.out.println("Local de aproveitamento: " + aproveitamento);
-        System.out.println("Capacidade (Mm^3): " + capacidade);
-        return super.toString();
+        if(getDonos().size() > 0) {
+            return "Designação: " + getDesignacao() +
+                    ", Numero de identificação: " + getNumIdentificacao() +
+                    ", Data da Inauguração: " + getdataInauguracao() +
+                    ", Localidade: " + getLocalidade() +
+                    ", Potencia (MW): " + getPotencia() +
+                    ", Curso de água: " + cursoAgua +
+                    ", Aproveitamento: " + aproveitamento +
+                    ", Capacidade: " + capacidade +
+                    ", Donos: " + getDonos()
+            ;
+        }
+        return "Designação: " + getDesignacao() +
+                ", Numero de identificação: " + getNumIdentificacao() +
+                ", Data da Inauguração: " + getdataInauguracao() +
+                ", Localidade: " + getLocalidade() +
+                ", Potencia (MW): " + getPotencia() +
+                ", Curso de água: " + cursoAgua +
+                ", Aproveitamento: " + aproveitamento +
+                ", Capacidade: " + capacidade;
     }
 
     public String getCursoAgua() {

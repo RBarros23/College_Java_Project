@@ -4,7 +4,8 @@ import java.util.ArrayList;
 public class Fotovoltaica extends Central implements Serializable {
     private int area;
     private int numPaineis;
-    private int potPainel; //potencia de cada painel
+    private int potencia; //soma de todas os paineis
+    private String tipoEquipamento = "P";
     private ArrayList<Equipamento> equip = new ArrayList<Equipamento>();
 
 
@@ -13,29 +14,27 @@ public class Fotovoltaica extends Central implements Serializable {
     }
 
 
-    //potencia deste tipo de central = numPaineis * potPainel
-    public Fotovoltaica(int numIdentificacao, String designacao, String localidade, int anoInicio, int area, int numPaineis, int potPainel){
-        super(numIdentificacao, designacao, localidade, anoInicio, numPaineis*potPainel);
+    public Fotovoltaica(int numIdentificacao, String designacao, String localidade, int[] dataInauguracao, int area){
+        super(numIdentificacao, designacao, localidade, dataInauguracao);
         this.area = area;
-        this.numPaineis = numPaineis;
-        this.potPainel = potPainel;
     }
 
     public void addEquip(Equipamento e){  //confirmar no main se é do tipo P
         equip.add(e);
     }
 
-    @Override
-    public String toString() {
-        System.out.println("Central Fotovoltaica{" +
-                "area=" + area +
-                ", numPaineis=" + numPaineis +
-                ", potPainel=" + potPainel +
-                '}');
-                return super.toString();
-    }
-
     public void setDonos(Empresas donos){
         super.setDonos(donos);
+    }
+
+    public void setNumPaineis() {
+        numPaineis = equip.size();
+    }
+
+    public void setPotencia(){
+        potencia = 0;
+        for(Equipamento e: equip){
+            potencia += e.getPotencia();
+        }
     }
 }

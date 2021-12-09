@@ -6,16 +6,19 @@ import java.util.ArrayList;
 public class gerirEquipamentos {
 
     public static void insConsultarEquipamentos(ArrayList<Equipamento> equipamentos, ArrayList<Fotovoltaica> fotovolt, ArrayList<Eolica> eolica){
-        int opcao = Consola.lerInt("1 - Inserir, 2 - Consultar (por tipo) 3 - Alterar equipamento (0 para voltar)", 0, 3);
+        int opcao = Consola.lerInt("1 - Inserir, 2 - Associar Equipamento, 3 - Consultar (por tipo) 4 - Alterar equipamento (0 para voltar)", 0, 3);
 
         switch (opcao){
             case 1:
                 insEquipamentos(equipamentos, fotovolt, eolica);
                 break;
             case 2:
-                consultarEquipTipo(equipamentos);
+                associarEquip(equipamentos, -1, fotovolt, eolica);
                 break;
             case 3:
+                consultarEquipTipo(equipamentos);
+                break;
+            case 4:
                 alterarEquip(equipamentos, fotovolt, eolica);
                 break;
 
@@ -23,17 +26,15 @@ public class gerirEquipamentos {
     }
 
     private static void insEquipamentos(ArrayList<Equipamento> equipamentos, ArrayList<Fotovoltaica> fotovolt, ArrayList<Eolica> eolica){
-        String designacao, fabricante, modelo, tipo = null;
+        String designacao, fabricante, modelo, tipo;
         int potencia, check, adicionar;
 
         do {
             designacao = Consola.lerString("Designação: ");
             check = veriDesignacao(equipamentos, designacao);
-            if(check == 0)
-                System.out.println("Já existe um equipamento com essa designação!");
-        }while(check == 0);
+        }while(check != -1);
 
-        if(check == 1){
+        if(check == -1){
             fabricante = Consola.lerString("Fabricante: ");
             modelo = Consola.lerString("Modelo: ");
             tipo = pedirTipoEquip();
@@ -71,11 +72,20 @@ public class gerirEquipamentos {
         return tipo;
     }
 
-    private static void associarEquip(ArrayList<Equipamento> equipamentos, int indiceEquip , ArrayList<Fotovoltaica> fotovolt, ArrayList<Eolica> eolica){
+
+    public static void associarEquip(ArrayList<Equipamento> equipamentos, int indiceEquip , ArrayList<Fotovoltaica> fotovolt, ArrayList<Eolica> eolica){
         int numCentral;
         int[] dataAssociacao;
+        String designacao;
+
+        if(indiceEquip == -1){
+            do {
+                designacao = Consola.lerString("Designação do equipamento a associar: ");
+                indiceEquip = veriDesignacao(equipamentos, designacao);
+            }while(indiceEquip == -1);
+        }
+
         if(equipamentos.get(indiceEquip).getTipo().equalsIgnoreCase("P")){
-            System.out.println("Como o equipamento é do tipo P:");
             System.out.println("Ver lista de centrais fotovoltaicas - 0.");
             do {
                 numCentral = Consola.lerInt("Indique o numero da central fotovoltaica a adicionar: ", 0, fotovolt.size());
@@ -89,7 +99,6 @@ public class gerirEquipamentos {
             equipamentos.get(indiceEquip).setNumCentral(fotovolt.get(numCentral).getNumIdentificacao());
         }
         else{
-            System.out.println("Como o equipamento é do tipo A:");
             System.out.println("Ver lista de centrais eolicas - 0.");
             do {
                 numCentral = Consola.lerInt("Indique o numero da central fotovoltaica a adicionar: ", 0, eolica.size());
@@ -104,15 +113,17 @@ public class gerirEquipamentos {
         }
     }
 
-    /**Verificar se já existe algum equipamento com essa designação*/
+    /**Verificar se já existe algum equipamento com essa designação
+     * Se existir devolve o indice
+     * Se nao existir devolve -1*/
     private static int veriDesignacao(ArrayList<Equipamento> equipamentos, String designacao){
-        for(Equipamento equip : equipamentos){
-            if(equip.getDesignacao().equalsIgnoreCase(designacao)){
-                return 0;
+        for(int i = 0; i < equipamentos.size(); i++){
+            if(equipamentos.get(i).getDesignacao().equalsIgnoreCase(designacao)){
+                System.out.println("Já existe um equipamento com essa designação!");
+                return i;
             }
         }
-        return 1;
-
+        return -1;
     }
 
     /**

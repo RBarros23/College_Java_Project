@@ -12,32 +12,60 @@ public class Central implements Serializable{
 
 
     public Central() {}
-
-
-    public Central(int numIdentificacao, String designacao,String localidade, int anoInicio, int potencia){
+    /**Construtor utilizado por Fotovoltaicos e Eolicas*/
+    public Central(int numIdentificacao, String designacao,String localidade, int[] dataInauguracao){
         this.numIdentificacao = numIdentificacao;
         this.designacao = designacao;
         this.localidade = localidade;
-        this.anoInicio = anoInicio;
-        this.potencia = potencia;
+        this.dataInauguracao = dataInauguracao;
     }
-
-
-    public int getNumIdentificacao() { // será utilizado para confirmar se já existe o numero ou nao
-        return numIdentificacao;
+    /**Construtor utilizado por Hidroeletricas*/
+    public Central(int numIdentificacao, String designacao,String localidade, int potencia, int[] dataInauguracao){
+        this.numIdentificacao = numIdentificacao;
+        this.designacao = designacao;
+        this.localidade = localidade;
+        this.potencia = potencia;
+        this.dataInauguracao = dataInauguracao;
     }
 
     public void setDonos(Empresas donos) {
         this.donos.add(donos);
     }
 
+    public void setPotencia(int potencia) {
+        this.potencia = potencia;
+    }
+
+    public int getNumIdentificacao() { // será utilizado para confirmar se já existe o numero ou nao
+        return numIdentificacao;
+    }
+
+    public String getdataInauguracao() {
+        return dataInauguracao[0] + "/" + dataInauguracao[1] + "/" + dataInauguracao[2];
+    }
+
+    public String getDesignacao() {
+        return designacao;
+    }
+
+    public String getLocalidade() {
+        return localidade;
+    }
+
+    public int getAnoInicio() {
+        return anoInicio;
+    }
+
+    public int getPotencia() {
+        return potencia;
+    }
+
+    public ArrayList<Empresas> getDonos() {
+        return donos;
+    }
+
     @Override
     public String toString() {
-        return "numIdentificacao=" + numIdentificacao +
-                ", designacao='" + designacao + '\'' +
-                ", localidade='" + localidade + '\'' +
-                ", anoInicio=" + anoInicio +
-                ", potencia=" + potencia +
-                '}';
+        return "";
     }
 }
