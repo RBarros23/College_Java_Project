@@ -25,7 +25,6 @@ public class Funcionarios implements Serializable{
     }
 
     public String getDataNascimento() {
-        //[0] = dia, [1] = mes, [2] = ano
         return dataNascimento[0] + "/" + dataNascimento[1] + "/" + dataNascimento[2];
     }
 

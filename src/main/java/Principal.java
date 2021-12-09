@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.time.LocalDate;
 
 import util.Consola;
 
@@ -43,7 +44,7 @@ public class Principal {
                     break;
                 case 4: //Inserir, consultar (por localidade) centrais
                         //sempre que adicionar uma central incrementar contCentrais e associar ao numIdentificacao
-                    gerirCentrais.insConsulCentrais();
+                    gerirCentrais.insConsulCentrais(hidro, fotovolt, eolica);
                     break;
                 case 5: //Associar empresas a uma central
                     assosEmpresa(emp, hidro, fotovolt, eolica, totalCentrais);
@@ -208,7 +209,8 @@ public class Principal {
             morada = Consola.lerString("Morada: ");
             funcao = Consola.lerString("Função: ");
             telefone = Consola.lerInt("Telefone: ", 1, 999999999);
-            dataNascimento = lerDataNascimento(); //[0] = dia, [1] = mes, [2] = ano
+            System.out.printf("Data de nascimento:");
+            dataNascimento = lerData(); //[0] = dia, [1] = mes, [2] = ano
             emp.get(indice).setEmpregados(new Funcionarios(nome, morada, funcao, nifFuncionario, telefone, dataNascimento[0], dataNascimento[1], dataNascimento[2]));
 
 
@@ -318,10 +320,10 @@ public class Principal {
         }
     }
 
-    public static int[] lerDataNascimento(){
+    public static int[] lerData(){
         int maxDiasMes,dia, mes, ano;
-        ano = Consola.lerInt("Ano de nascimento: ", 1910, 2022);
-        mes = Consola.lerInt("Mes de nascimento: ", 1, 12);
+        ano = Consola.lerInt("Ano: ", 1910, 2022);
+        mes = Consola.lerInt("Mes: ", 1, 12);
         switch (mes){
             case 4, 6, 9, 11:
                 maxDiasMes = 30;
@@ -337,7 +339,7 @@ public class Principal {
             default:
                 maxDiasMes = 31;
         }
-        dia = Consola.lerInt("Dia de nascimento: ", 1, maxDiasMes);
+        dia = Consola.lerInt("Dia: ", 1, maxDiasMes);
         int data[] = {dia, mes, ano};
         return data;
     }

@@ -73,6 +73,7 @@ public class gerirEquipamentos {
 
     private static void associarEquip(ArrayList<Equipamento> equipamentos, int indiceEquip , ArrayList<Fotovoltaica> fotovolt, ArrayList<Eolica> eolica){
         int numCentral;
+        int[] dataAssociacao;
         if(equipamentos.get(indiceEquip).getTipo().equalsIgnoreCase("P")){
             System.out.println("Como o equipamento é do tipo P:");
             System.out.println("Ver lista de centrais fotovoltaicas - 0.");
@@ -82,6 +83,8 @@ public class gerirEquipamentos {
                     System.out.println(fotovolt.toString());
                 }
             }while(numCentral == 0);
+            dataAssociacao = Principal.lerData();
+            equipamentos.get(indiceEquip).setDataAssociado(dataAssociacao[0], dataAssociacao[1], dataAssociacao[2]);
             fotovolt.get(numCentral).addEquip(equipamentos.get(indiceEquip));
             equipamentos.get(indiceEquip).setNumCentral(fotovolt.get(numCentral).getNumIdentificacao());
         }
@@ -94,6 +97,8 @@ public class gerirEquipamentos {
                     System.out.println(eolica.toString());
                 }
             }while(numCentral == 0);
+            dataAssociacao = Principal.lerData();
+            equipamentos.get(indiceEquip).setDataAssociado(dataAssociacao[0], dataAssociacao[1], dataAssociacao[2]);
             eolica.get(numCentral).addEquip(equipamentos.get(indiceEquip));
             equipamentos.get(indiceEquip).setNumCentral(eolica.get(numCentral).getNumIdentificacao());
         }

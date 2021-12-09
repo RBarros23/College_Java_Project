@@ -7,6 +7,7 @@ public class Equipamento implements Serializable {
     private int potencia;
     private String tipo; //P - Painel ou A - Aerogerador
     private int numCentral; //numero de identificacao da central
+    private int[] dataAssociado;
 
     public Equipamento(String designacao, String fabricante, String modelo, int potencia, String tipo) {
         this.designacao = designacao;
@@ -50,6 +51,10 @@ public class Equipamento implements Serializable {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+
+    public void setDataAssociado(int dia, int mes, int ano) {
+        dataAssociado = new int[]{dia, mes, ano};
     }
 
     @Override

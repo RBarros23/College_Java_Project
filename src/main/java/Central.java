@@ -8,6 +8,7 @@ public class Central implements Serializable{
     private int anoInicio;
     private int potencia; //potencia instalada
     private ArrayList<Empresas> donos = new ArrayList<>();
+    int[] dataInauguracao;
 
 
     public Central() {}
@@ -25,7 +26,6 @@ public class Central implements Serializable{
     public int getNumIdentificacao() { // será utilizado para confirmar se já existe o numero ou nao
         return numIdentificacao;
     }
-
 
     public void setDonos(Empresas donos) {
         this.donos.add(donos);
