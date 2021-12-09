@@ -6,6 +6,7 @@ public class Equipamento implements Serializable {
     private String modelo;
     private int potencia;
     private String tipo; //P - Painel ou A - Aerogerador
+    private int numCentral; //numero de identificacao da central
 
     public Equipamento(String designacao, String fabricante, String modelo, int potencia, String tipo) {
         this.designacao = designacao;
@@ -21,6 +22,34 @@ public class Equipamento implements Serializable {
 
     public String getTipo() {
         return tipo;
+    }
+
+    public int getNumCentral() {
+        return numCentral;
+    }
+
+    public void setNumCentral(int numCentral) {
+        this.numCentral = numCentral;
+    }
+
+    public void setDesignacao(String designacao) {
+        this.designacao = designacao;
+    }
+
+    public void setFabricante(String fabricante) {
+        this.fabricante = fabricante;
+    }
+
+    public void setModelo(String modelo) {
+        this.modelo = modelo;
+    }
+
+    public void setPotencia(int potencia) {
+        this.potencia = potencia;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     @Override

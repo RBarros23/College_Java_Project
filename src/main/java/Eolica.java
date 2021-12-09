@@ -32,6 +32,9 @@ public class Eolica extends Central implements Serializable {
         return potAeroger;
     }
 
+    public ArrayList<Equipamento> getEquip() {
+        return equip;
+    }
 
     public void addEquip(Equipamento e){  //confirmar no main se é do tipo A
         equip.add(e);

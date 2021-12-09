@@ -6,7 +6,7 @@ public class Empresas implements Serializable {
     private String morada;
     private int nif; //unico
     private ArrayList<Funcionarios> empregados = new ArrayList<Funcionarios>();
-    //falta metodo para adicionar funcionario para o Arraylist
+
 
     public Empresas() {}
 
@@ -35,13 +35,6 @@ public class Empresas implements Serializable {
 
     @Override
     public String toString() {
-
         return "\nEmpresa:\n" + "Nome: " + nome + "\nMorada: " + morada + "\nNIF: " + nif ;
-
-//                "Empresas{" +
-//                "nome='" + nome + '\'' +
-//                ", morada='" + morada + '\'' +
-//                ", nif=" + nif +
-//                '}';
     }
 }
