@@ -12,9 +12,9 @@ public class Hidroeletrica extends Central implements Serializable {
     }
 
 
-    public Hidroeletrica(int numIdentificacao, String designacao, String localidade, int potencia, int[] dataInauguracao,
+    public Hidroeletrica(int numIdentificacao, String designacao, String localidade, int potencia, int[] dataInauguracao, int potenciaProduzidaAnual, int[] potenciaCadaAno,
                             String cursoAgua, String aproveitamento, int capacidade) {
-        super(numIdentificacao, designacao, localidade, potencia, dataInauguracao);
+        super(numIdentificacao, designacao, localidade, potencia, dataInauguracao, potenciaProduzidaAnual, potenciaCadaAno);
         this.cursoAgua = cursoAgua;
         this.aproveitamento = aproveitamento;
         this.capacidade = capacidade;
@@ -47,4 +47,7 @@ public class Hidroeletrica extends Central implements Serializable {
     public void setDonos(Empresas donos){
         super.setDonos(donos);
     }
+
+
+
 }
