@@ -30,14 +30,13 @@ public class Principal {
             carregarGestao.close();
         } catch (IOException | ClassNotFoundException ex) {}
 
-        totalCentrais = hidro.size() + fotovolt.size() + eolica.size();
+
         do {
-            System.out.println(emp.size());
-            System.out.println(totalCentrais);
+            totalCentrais = hidro.size() + fotovolt.size() + eolica.size();
             opcao = menuInicial(hidro.size(), fotovolt.size(), eolica.size());
             switch (opcao) {
                 case 1: //Inserir e consultar empresas.
-                    insConsEmpresa(emp);
+                    gerirEmpresas.insConsEmpresa(emp);
                     break;
                 case 2: //Inserir e consultar (por nif) funcionários
                     insConsEmpregado(emp);
@@ -50,7 +49,7 @@ public class Principal {
                     gerirCentrais.insConsulCentrais(hidro, fotovolt, eolica);
                     break;
                 case 5: //Associar empresas a uma central
-                    assosEmpresa(emp, hidro, fotovolt, eolica, totalCentrais);
+                    gerirEmpresas.assosEmpresa(emp, hidro, fotovolt, eolica, totalCentrais);
                     break;
                 case 6: //Associar valor de produção energética anual a uma central
                     break;
@@ -102,53 +101,6 @@ public class Principal {
         return Consola.lerInt("Opção: ",0,4);
     }
 
-    public static void insConsEmpresa(ArrayList<Empresas> emp){
-        int opcao = 0;
-        opcao = Consola.lerInt("Inserir (1) ou Consultar (2) (Voltar ao menu principal (0)): ", 0, 2);
-        switch (opcao){
-            case 0:
-                break;
-            case 1:
-                inserirEmpresa(emp);
-                break;
-            case 2:
-                System.out.println(emp.toString());
-                break;
-        }
-    }
-
-    public static void inserirEmpresa(ArrayList<Empresas> emp){
-        String nome, morada;
-        int nif = 0;
-        boolean check = true;
-
-        nome = Consola.lerString("Nome da empresa: ");
-        morada = Consola.lerString("Morada da empresa: ");
-        do {
-            nif = Consola.lerInt("NIF da empresa:(Cancelar 0): ", 0, 999999999);
-            if(nif == 0) {
-                check = false;
-            }
-            else {
-                check = verNifEmp(emp, nif);
-                if(!check){
-                    emp.add(new Empresas(nome, morada, nif));
-                }
-            }
-        }while(check);
-
-    }
-
-    public static Boolean verNifEmp(ArrayList<Empresas> e, int nif){
-        for(Empresas i : e){
-            if(nif == i.getNif()){
-                System.out.println("Já existe uma empresa com este NIF associado!");
-                return true;
-            }
-        }
-        return false;
-    }
-
     public static Boolean verNifTrab(ArrayList<Funcionarios> f, int nif) {
         for (Funcionarios i : f) {
             if (nif == i.getNif()) {
@@ -163,59 +115,58 @@ public class Principal {
         int opcao = 0;
         opcao = Consola.lerInt("Inserir (1) ou Consultar por NIF (2) (Voltar ao menu principal (0)): ", 0, 2);
         switch (opcao){
-//            case 0:
-//                break;
             case 1:
                 inserirEmpregado(emp);
                 break;
             case 2:
-                //System.out.println(emp.get(0).getEmpregados().size());
                 consultarEmpregado(emp);
                 break;
         }
     }
 
     public static void inserirEmpregado(ArrayList<Empresas> emp){
-        String nome, morada, funcao;
+        String nome, morada, funcao, nomeEmpresa;
         int nifFuncionario, telefone, contador = -1, indice = 0, nifEmpresa;
         boolean check = true;
         int dataNascimento[];
 
+        if(emp.size() > 0) {
+            do {
+                nifEmpresa = Consola.lerInt("NIF da empresa: ", 1, 999999999);
 
-        do {
-            nifEmpresa = Consola.lerInt("NIF da empresa: ",1,999999999);
-
-            for(int i = 0; i < emp.size(); i++){
-                if(emp.get(i).getNif() == nifEmpresa){
-                    indice = i;
-                    i = emp.size();
-                    contador = 0;
+                for (int i = 0; i < emp.size(); i++) {
+                    if (emp.get(i).getNif() == nifEmpresa) {
+                        indice = i;
+                        i = emp.size();
+                        contador = 0;
+                    }
                 }
+                if (contador == -1)
+                    System.out.println("Não existe nenhuma empresa com esse NIF!");
+            } while (contador == -1);
+
+
+            do {
+                nifFuncionario = Consola.lerInt("NIF do trabalhador: ", 1, 999999999);
+                for (int i = 0; i < emp.size(); i++) {
+                    check = verNifTrab(emp.get(i).getEmpregados(), nifFuncionario);
+                }
+            } while (!check);
+
+            if (check) {
+                nome = Consola.lerString("Nome: ");
+                morada = Consola.lerString("Morada: ");
+                funcao = Consola.lerString("Função: ");
+                telefone = Consola.lerInt("Telefone: ", 1, 999999999);
+                System.out.printf("Data de nascimento:\n");
+                nomeEmpresa = emp.get(indice).getNome();
+                dataNascimento = lerData(); //[0] = dia, [1] = mes, [2] = ano
+                emp.get(indice).setEmpregados(new Funcionarios(nome, morada, funcao, nifFuncionario, telefone, dataNascimento[0], dataNascimento[1], dataNascimento[2], nomeEmpresa));
             }
-            if(contador == -1)
-                System.out.println("Não existe nenhuma empresa com esse NIF!");
-        }while(contador == -1);
-
-
-        do{
-            nifFuncionario = Consola.lerInt("NIF do trabalhador: ", 1, 999999999);
-            for(int i = 0; i < emp.size(); i++) {
-                check = verNifTrab(emp.get(i).getEmpregados(), nifFuncionario);
-            }
-        }while(!check);
-
-        if(check){
-            nome = Consola.lerString("Nome: ");
-            morada = Consola.lerString("Morada: ");
-            funcao = Consola.lerString("Função: ");
-            telefone = Consola.lerInt("Telefone: ", 1, 999999999);
-            System.out.printf("Data de nascimento:");
-            dataNascimento = lerData(); //[0] = dia, [1] = mes, [2] = ano
-            emp.get(indice).setEmpregados(new Funcionarios(nome, morada, funcao, nifFuncionario, telefone, dataNascimento[0], dataNascimento[1], dataNascimento[2]));
-
-
         }
-
+        else {
+            System.out.println("Não existem empresas para poder ter funcionarios!");
+        }
     }
 
     public static void consultarEmpregado(ArrayList<Empresas> emp){
@@ -248,49 +199,6 @@ public class Principal {
         }
     }
 
-    public static void assosEmpresa(ArrayList<Empresas> emp, ArrayList<Hidroeletrica> hidro, ArrayList<Fotovoltaica> fotovolt, ArrayList<Eolica> eolica, int totalCentrais) {
-        int opcao = -2, contador = 0, opcaoCentral = 0, contaAdi = 0;
-
-        if (emp.size() > 0 && totalCentrais > 0) {
-            do {
-                opcao = Consola.lerInt("Insira NIF da empresa (-1 para sair): ", -1, 999999999);
-                for (Empresas e : emp) {
-                    if (e.getNif() == opcao) {
-                        contador ++;
-                    }
-                }
-                if (contador == 0)
-                    System.out.println("Não existe nenhuma empresa com esse NIF!");
-                else {
-                    do {
-                        opcaoCentral = Consola.lerInt("Insira numero de identificacao da central (-1 para sair): ", -1, 999999999);
-                        for (int j = 0; j < totalCentrais; j++) {
-                            if (opcaoCentral == hidro.get(j).getNumIdentificacao()) {
-                                hidro.get(j).setDonos(emp.get(contador));
-                                contaAdi++;
-                                j = totalCentrais;
-                            } else if (opcaoCentral == fotovolt.get(j).getNumIdentificacao()) {
-                                fotovolt.get(j).setDonos(emp.get(contador));
-                                contaAdi++;
-                                j = totalCentrais;
-                            } else if (opcaoCentral == eolica.get(j).getNumIdentificacao()) {
-                                eolica.get(j).setDonos(emp.get(contador));
-                                contaAdi++;
-                                j = totalCentrais;
-                            }
-                        }
-                        if (contaAdi == 0)
-                            System.out.println("Não existe nenhuma central com este numero de identificação: " + opcaoCentral);
-                    } while (opcaoCentral != -1);
-
-                }
-            } while (opcao != -1 || opcaoCentral != -1);
-
-        }
-        else
-            System.out.println("Não existem centrais/empresas, adicione primeiro!");
-    }
-
     public static void gravarFicheiro(ArrayList<Empresas> emp, ArrayList<Hidroeletrica> hidro, ArrayList<Fotovoltaica> fotovolt, ArrayList<Eolica> eolica, ArrayList<Equipamento> equipamentos){
         try{
             FileOutputStream gestao = new FileOutputStream("Gestao.dat");
@@ -304,20 +212,6 @@ public class Principal {
             gestao.close();
             System.out.println("Gravado!");
         }catch (IOException ex) {
-            System.out.println(ex.getMessage());
-        }
-    }
-
-    public static void lerFicheiro(ArrayList<Empresas> emp) { //Meter este codigo ao dentro do main ao iniciar o programa
-
-        try {
-            FileInputStream carregarGestao = new FileInputStream("Gestao.dat");
-            ObjectInputStream in = new ObjectInputStream(carregarGestao);
-            emp = (ArrayList<Empresas>) in.readObject();
-            in.close();
-            carregarGestao.close();
-            System.out.println("Ficheiro carregado!");
-        } catch (IOException | ClassNotFoundException ex) {
             System.out.println(ex.getMessage());
         }
     }

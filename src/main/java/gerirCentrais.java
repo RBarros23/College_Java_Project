@@ -80,44 +80,49 @@ public class gerirCentrais {
         eolica.add(new Eolica(numIdentificacao, designacao, localidade, dataInauguracao, potenciaAnual));
     }
 
-    private static void procurarLocalidade(ArrayList<Hidroeletrica> hidro, ArrayList<Fotovoltaica> fotovolt, ArrayList<Eolica> eolica){
+    private static void procurarLocalidade(ArrayList<Hidroeletrica> hidro, ArrayList<Fotovoltaica> fotovolt, ArrayList<Eolica> eolica) {
         int check = 0;
         String localidade;
-        do {
-            localidade = Consola.lerString("Qual a localidade a procurar centrais: ");
-            for(Hidroeletrica h : hidro){
-                if(h.getLocalidade().equalsIgnoreCase(localidade)) {
-                    check++;
+        if (hidro.size() > 0 || fotovolt.size() > 0 || eolica.size() > 0) {
+            do {
+                localidade = Consola.lerString("Qual a localidade a procurar centrais: ");
+                for (Hidroeletrica h : hidro) {
+                    if (h.getLocalidade().equalsIgnoreCase(localidade)) {
+                        check++;
+                    }
                 }
-            }
-            for(Fotovoltaica f : fotovolt){
-                if(f.getLocalidade().equalsIgnoreCase(localidade)){
-                    check ++;
+                for (Fotovoltaica f : fotovolt) {
+                    if (f.getLocalidade().equalsIgnoreCase(localidade)) {
+                        check++;
+                    }
                 }
-            }
-            for(Eolica e : eolica){
-                if(e.getLocalidade().equalsIgnoreCase(localidade)){
-                    check ++;
+                for (Eolica e : eolica) {
+                    if (e.getLocalidade().equalsIgnoreCase(localidade)) {
+                        check++;
+                    }
                 }
-            }
-            if(check == 0)
-                System.out.println("Não existe nenhuma central nessa localidade!");
-        }while(check == 0);
+                if (check == 0)
+                    System.out.println("Não existe nenhuma central nessa localidade!");
+            } while (check == 0);
 
-        for(Hidroeletrica h : hidro){
-            if(h.getLocalidade().equalsIgnoreCase(localidade)) {
-                System.out.println(h.toString());
+            for (Hidroeletrica h : hidro) {
+                if (h.getLocalidade().equalsIgnoreCase(localidade)) {
+                    System.out.println(h.toString());
+                }
+            }
+            for (Fotovoltaica f : fotovolt) {
+                if (f.getLocalidade().equalsIgnoreCase(localidade)) {
+                    System.out.println(f.toString());
+                }
+            }
+            for (Eolica e : eolica) {
+                if (e.getLocalidade().equalsIgnoreCase(localidade)) {
+                    System.out.println(e.toString());
+                }
             }
         }
-        for(Fotovoltaica f : fotovolt){
-            if(f.getLocalidade().equalsIgnoreCase(localidade)){
-                System.out.println(f.toString());
-            }
-        }
-        for(Eolica e : eolica){
-            if(e.getLocalidade().equalsIgnoreCase(localidade)){
-                System.out.println(e.toString());
-            }
+        else{
+            System.out.println("Não existem centrais registadas!");
         }
     }
 }

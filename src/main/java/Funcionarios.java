@@ -5,18 +5,20 @@ public class Funcionarios implements Serializable{
     private String nome;
     private String morada;
     private String funcao;
+    private String nomeEmpresa;
     private int nif; //Unico
     private int telefone;
     int[] dataNascimento;
 
     public Funcionarios(){}
 
-    public Funcionarios(String nm, String morada, String funcao, int nif, int tele, int dia, int mes, int ano){
+    public Funcionarios(String nm, String morada, String funcao, int nif, int tele, int dia, int mes, int ano, String nomeEmpresa){
         nome = nm;
         this.morada = morada;
         this.funcao = funcao;
         this.nif = nif;
         telefone = tele;
+        this.nomeEmpresa = nomeEmpresa;
         setDataNascimento(ano, mes, dia);
     }
 
@@ -34,13 +36,13 @@ public class Funcionarios implements Serializable{
 
     @Override
     public String toString() {
-        return "\nFuncionarios{" +
-                "nome='" + nome + '\'' +
-                ", morada='" + morada + '\'' +
-                ", funcao='" + funcao + '\'' +
-                ", nif=" + nif +
-                ", telefone=" + telefone +
-                ", dataNascimento=" + getDataNascimento() +
-                '}';
+        return "\n" +
+                "Nome: " + nome +
+                ", Morada: " + morada +
+                ", Funcao: " + funcao +
+                ", NIF: " + nif +
+                ", Telefone: " + telefone +
+                ", Data nascimento: " + getDataNascimento() +
+                ", Empresa em que trabalha: " + nomeEmpresa;
     }
 }
