@@ -13,8 +13,8 @@ public class Fotovoltaica extends Central implements Serializable {
         super();
     }
 
-    public Fotovoltaica(int numIdentificacao, String designacao, String localidade, int[] dataInauguracao, int area){
-        super(numIdentificacao, designacao, localidade, dataInauguracao);
+    public Fotovoltaica(int numIdentificacao, String designacao, String localidade, int[] dataInauguracao,int potenciaAnual, int area){
+        super(numIdentificacao, designacao, localidade, dataInauguracao, potenciaAnual);
         this.area = area;
     }
 

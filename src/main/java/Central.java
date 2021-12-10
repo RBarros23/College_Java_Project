@@ -6,18 +6,19 @@ public class Central implements Serializable{
     private String designacao;
     private String localidade;
     private int potencia; //potencia instalada
-    private int potenciaProduzida; //potencia produzida desde que foi inaugurada
+    private int potenciaProduzidaAnual; //potencia produzida desde que foi inaugurada
     private ArrayList<Empresas> donos = new ArrayList<>();
     int[] dataInauguracao;
 
 
     public Central() {}
     /**Construtor utilizado por Fotovoltaicos e Eolicas*/
-    public Central(int numIdentificacao, String designacao,String localidade, int[] dataInauguracao){
+    public Central(int numIdentificacao, String designacao,String localidade, int[] dataInauguracao, int potenciaProduzidaAnual){
         this.numIdentificacao = numIdentificacao;
         this.designacao = designacao;
         this.localidade = localidade;
         this.dataInauguracao = dataInauguracao;
+        this.potenciaProduzidaAnual = potenciaProduzidaAnual;
     }
     /**Construtor utilizado por Hidroeletricas*/
     public Central(int numIdentificacao, String designacao,String localidade, int potencia, int[] dataInauguracao){
@@ -56,8 +57,8 @@ public class Central implements Serializable{
         return potencia;
     }
 
-    public int getPotenciaProduzida() {
-        return potenciaProduzida;
+    public int getPotenciaProduzidaAnual() {
+        return potenciaProduzidaAnual;
     }
 
     public ArrayList<Empresas> getDonos() {

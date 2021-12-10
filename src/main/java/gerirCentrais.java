@@ -52,7 +52,7 @@ public class gerirCentrais {
     }
 
     private static void adicionarFoto(ArrayList<Fotovoltaica> fotovolt){
-        int numIdentificacao, area;
+        int numIdentificacao, area, potenciaAnual;
         String designacao, localidade;
         int[] dataInauguracao;
 
@@ -60,22 +60,24 @@ public class gerirCentrais {
         area = Consola.lerInt("Area da central: ", 1, 999999);
         designacao = Consola.lerString("Designação da central: ");
         localidade = Consola.lerString("Localidade: ");
-        System.out.println("Data de inicio de funcionamento:");
+        potenciaAnual = Consola.lerInt("Potencia produzida anualmente (GW): ", 1, 999999);
+        System.out.println("Data de inicio de funcionamento: ");
         dataInauguracao = Principal.lerData();
-        fotovolt.add(new Fotovoltaica(numIdentificacao, designacao, localidade, dataInauguracao, area));
+        fotovolt.add(new Fotovoltaica(numIdentificacao, designacao, localidade, dataInauguracao, potenciaAnual, area));
     }
 
     private static void adicionarEolica(ArrayList<Eolica> eolica){
-        int numIdentificacao;
+        int numIdentificacao, potenciaAnual;
         String designacao, localidade;
         int[] dataInauguracao;
 
         numIdentificacao = eolica.size() + 1;
         designacao = Consola.lerString("Designação da central: ");
         localidade = Consola.lerString("Localização: ");
+        potenciaAnual = Consola.lerInt("Potencia anual (GW): ", 1, 999999);
         System.out.println("Data de inicio de funcionamento:");
         dataInauguracao = Principal.lerData();
-        eolica.add(new Eolica(numIdentificacao, designacao, localidade, dataInauguracao));
+        eolica.add(new Eolica(numIdentificacao, designacao, localidade, dataInauguracao, potenciaAnual));
     }
 
     private static void procurarLocalidade(ArrayList<Hidroeletrica> hidro, ArrayList<Fotovoltaica> fotovolt, ArrayList<Eolica> eolica){

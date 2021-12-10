@@ -12,8 +12,8 @@ public class Eolica extends Central implements Serializable {
         super();
     }
 
-    public Eolica(int numIdentificacao, String designacao, String localidade, int[] dataInauguracao){
-        super(numIdentificacao, designacao, localidade, dataInauguracao);
+    public Eolica(int numIdentificacao, String designacao, String localidade, int[] dataInauguracao, int potenciaAnual){
+        super(numIdentificacao, designacao, localidade, dataInauguracao, potenciaAnual);
     }
 
     @Override

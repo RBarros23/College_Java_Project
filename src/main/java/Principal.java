@@ -14,7 +14,7 @@ public class Principal {
         ArrayList<Eolica> eolica = new ArrayList<Eolica>();
         ArrayList<Equipamento> equipamentos = new ArrayList<Equipamento>();
         int totalCentrais;
-        totalCentrais = hidro.size() + fotovolt.size() + eolica.size();
+
 
         int opcao, op;
 
@@ -23,15 +23,18 @@ public class Principal {
             ObjectInputStream in = new ObjectInputStream(carregarGestao);
             emp = (ArrayList<Empresas>) in.readObject();
             equipamentos = (ArrayList<Equipamento>) in.readObject();
-//            hidro = (ArrayList<Hidroeletrica>) in.readObject();
-//            fotovolt = (ArrayList<Fotovoltaica>) in.readObject();
-//            eolica = (ArrayList<Eolica>) in.readObject();
+            hidro = (ArrayList<Hidroeletrica>) in.readObject();
+            fotovolt = (ArrayList<Fotovoltaica>) in.readObject();
+            eolica = (ArrayList<Eolica>) in.readObject();
             in.close();
             carregarGestao.close();
         } catch (IOException | ClassNotFoundException ex) {}
 
+        totalCentrais = hidro.size() + fotovolt.size() + eolica.size();
         do {
-            opcao = menuInicial(totalCentrais, hidro.size(), fotovolt.size(), eolica.size());
+            System.out.println(emp.size());
+            System.out.println(totalCentrais);
+            opcao = menuInicial(hidro.size(), fotovolt.size(), eolica.size());
             switch (opcao) {
                 case 1: //Inserir e consultar empresas.
                     insConsEmpresa(emp);
@@ -68,18 +71,15 @@ public class Principal {
                         }
                     }while(op != 0);
                     break;
-                case 8: //Gravar dados
-                    gravarFicheiro(emp, hidro, fotovolt, eolica, equipamentos);
-                    break;
-                case 0: //Gravar e sair
+                case 0, 8: //Gravar e sair
                     gravarFicheiro(emp, hidro, fotovolt, eolica, equipamentos);
                     break;
             }
         }while(opcao != 0);
     }
 
-    public static int menuInicial(int totalCentrais, int totalHidro, int totalFotovol, int totalEolica){
-        System.out.println("\nNúmero de centrais existentes: " + totalCentrais);
+    public static int menuInicial(int totalHidro, int totalFotovol, int totalEolica){
+        System.out.println("\nNúmero de centrais:");
         System.out.println("Hidroeletrica: "+ totalHidro + " Fotovoltaicas: " + totalFotovol + " Eolica: " +totalEolica );
         System.out.println("1 - Inserir e consultar (todas) empresas.");
         System.out.println("2 - Inserir e consultar (por nif) funcionários.");
@@ -251,13 +251,12 @@ public class Principal {
     public static void assosEmpresa(ArrayList<Empresas> emp, ArrayList<Hidroeletrica> hidro, ArrayList<Fotovoltaica> fotovolt, ArrayList<Eolica> eolica, int totalCentrais) {
         int opcao = -2, contador = 0, opcaoCentral = 0, contaAdi = 0;
 
-        if (emp.size() != 0 && totalCentrais != 0) {
+        if (emp.size() > 0 && totalCentrais > 0) {
             do {
                 opcao = Consola.lerInt("Insira NIF da empresa (-1 para sair): ", -1, 999999999);
-                for (int i = 0; i < emp.size(); i++) {
-                    if (emp.get(i).getNif() == opcao) {
-                        contador = i;
-                        i = emp.size();
+                for (Empresas e : emp) {
+                    if (e.getNif() == opcao) {
+                        contador ++;
                     }
                 }
                 if (contador == 0)
@@ -298,6 +297,9 @@ public class Principal {
             ObjectOutputStream out = new ObjectOutputStream(gestao);
             out.writeObject(emp);
             out.writeObject(equipamentos);
+            out.writeObject(hidro);
+            out.writeObject(fotovolt);
+            out.writeObject(eolica);
             out.close();
             gestao.close();
             System.out.println("Gravado!");
