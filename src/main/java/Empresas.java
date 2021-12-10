@@ -35,6 +35,6 @@ public class Empresas implements Serializable {
 
     @Override
     public String toString() {
-        return "\nNome: " + nome + " Morada: " + morada + " NIF: " + nif + "\n";
+        return "\nNome: " + nome + " Morada: " + morada + " NIF: " + nif + "\n" + " Nº funcionarios: " + empregados.size();
     }
 }

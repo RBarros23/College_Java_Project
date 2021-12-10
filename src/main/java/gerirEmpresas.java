@@ -99,4 +99,25 @@ public class gerirEmpresas {
             System.out.println("Não existem centrais/empresas, adicione primeiro!");
     }
 
+    public static void mediaEmpregados(ArrayList<Empresas> emp) {
+        int maior = 0, contador = 0;
+        ArrayList<Empresas> empresasOrdenadas = new ArrayList<>();
+        ArrayList<Empresas> empresas = new ArrayList<>(emp);
+
+        do {
+            for (int i = 0; i < empresas.size(); i++) {
+                if (empresas.get(i).getEmpregados().size() > empresas.get(maior).getEmpregados().size()) {
+                    maior = i;
+                }
+            }
+            empresasOrdenadas.add(empresas.get(maior));
+            empresas.remove(maior);
+            maior = 0;
+        }while (empresas.size() > 0);
+
+        for(int i = 0; i < empresasOrdenadas.size(); i++){
+            System.out.println("Nome empresa: " + empresasOrdenadas.get(i).getNome() + "   Nº Funcionários: " + empresasOrdenadas.get(i).getEmpregados().size());
+        }
+    }
+
 }

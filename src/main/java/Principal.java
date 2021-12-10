@@ -60,6 +60,7 @@ public class Principal {
                             case 1: //Lista de centrais fotovoltaicas com mais de 10000 painéis
                                 break;
                             case 2: //Numero de funcionários por empresa
+                                gerirEmpresas.mediaEmpregados(emp);
                                 break;
                             case 3: //Médias de produção de energética
                                 break;
