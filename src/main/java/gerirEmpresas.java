@@ -100,7 +100,7 @@ public class gerirEmpresas {
     }
 
     public static void mediaEmpregados(ArrayList<Empresas> emp) {
-        int maior = 0, contador = 0;
+        int maior = 0;
         ArrayList<Empresas> empresasOrdenadas = new ArrayList<>();
         ArrayList<Empresas> empresas = new ArrayList<>(emp);
 

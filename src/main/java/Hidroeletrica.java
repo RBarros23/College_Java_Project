@@ -1,5 +1,4 @@
 import java.io.Serializable;
-import java.util.Arrays;
 
 public class Hidroeletrica extends Central implements Serializable {
     private String cursoAgua;

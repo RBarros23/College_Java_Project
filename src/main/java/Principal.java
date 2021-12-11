@@ -1,6 +1,5 @@
 import java.io.*;
 import java.util.ArrayList;
-import java.time.LocalDate;
 
 import util.Consola;
 
@@ -14,8 +13,6 @@ public class Principal {
         ArrayList<Eolica> eolica = new ArrayList<Eolica>();
         ArrayList<Equipamento> equipamentos = new ArrayList<Equipamento>();
         int totalCentrais;
-
-
         int opcao, op;
 
         try {
@@ -63,6 +60,7 @@ public class Principal {
                                 gerirEmpresas.mediaEmpregados(emp);
                                 break;
                             case 3: //Médias de produção de energética
+                                gerirCentrais.mediaOrdenada(hidro, fotovolt, eolica);
                                 break;
                             case 4: //Total de produção energética anual por tipo
                                 gerirCentrais.totalProdTipo(hidro, fotovolt, eolica);

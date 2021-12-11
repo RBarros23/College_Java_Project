@@ -79,6 +79,10 @@ public class Central implements Serializable{
         return donos;
     }
 
+    public int getMediaProducao() {
+        return mediaProducao;
+    }
+
     @Override
     public String toString() {
         return "";

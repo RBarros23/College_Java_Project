@@ -2,6 +2,7 @@ import util.Consola;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 
 public class gerirCentrais {
@@ -186,51 +187,107 @@ public class gerirCentrais {
     private static void mediaHidro(ArrayList<Hidroeletrica> hidro){
         int media, valorBruto = 0;
         int[] potencias;
+        float mediaFloat;
 
         for(Hidroeletrica h : hidro){
             potencias =  h.getPotenciaCadaAno();
             for(int i = 0; i < potencias.length; i++){
                 valorBruto += potencias[i];
             }
-            media = valorBruto / potencias.length;
+            mediaFloat = (float) valorBruto /potencias.length;
+            media = (int) mediaFloat;
             h.setMediaProducao(media);
+            valorBruto = 0;
         }
     }
 
     private static void mediaFoto(ArrayList<Fotovoltaica> foto){
         int media, valorBruto = 0;
         int[] potencias;
+        float mediaFloat;
 
         for(Fotovoltaica f : foto){
             potencias = f.getPotenciaCadaAno();
             for(int i = 0; i < potencias.length; i++){
                 valorBruto += potencias[i];
             }
-            media = valorBruto / potencias.length;
+            mediaFloat = (float) valorBruto /potencias.length;
+            media = (int) mediaFloat;
             f.setMediaProducao(media);
+            valorBruto = 0;
         }
     }
 
     private static void mediaEolica(ArrayList<Eolica> eolica){
         int media, valorBruto = 0;
         int[] potencias;
+        float mediaFloat;
 
         for(Eolica e : eolica){
             potencias = e.getPotenciaCadaAno();
+
             for(int i = 0; i < potencias.length; i++){
                 valorBruto += potencias[i];
             }
-            media = valorBruto / potencias.length;
+            mediaFloat = (float) valorBruto /potencias.length;
+            media = (int) mediaFloat;
             e.setMediaProducao(media);
+            valorBruto = 0;
         }
     }
 
     public static void mediaOrdenada(ArrayList<Hidroeletrica> hidro, ArrayList<Fotovoltaica> foto, ArrayList<Eolica> eolica){
+        int maior = 0;
         mediaHidro(hidro);
         mediaFoto(foto);
         mediaEolica(eolica);
 
+        class nomeMedia{
+            String nome;
+            int media;
 
+            public nomeMedia(String nome, int media) {
+                this.nome = nome;
+                this.media = media;
+            }
+
+            public int getMedia() {
+                return media;
+            }
+
+            public String getNome() {
+                return nome;
+            }
+
+        }
+
+        ArrayList<nomeMedia> listaCompleta = new ArrayList<>();
+        ArrayList<nomeMedia> listaOrdenada = new ArrayList<>();
+
+        for(Hidroeletrica h : hidro){
+            listaCompleta.add(new nomeMedia(h.getDesignacao(), h.getMediaProducao()));
+        }
+        for(Fotovoltaica f: foto){
+            listaCompleta.add(new nomeMedia(f.getDesignacao(), f.getMediaProducao()));
+        }
+        for(Eolica e: eolica){
+            listaCompleta.add(new nomeMedia(e.getDesignacao(), e.getMediaProducao()));
+        }
+
+        do{
+            for(int i = 0; i < listaCompleta.size(); i++){
+                if(listaCompleta.get(i).getMedia() > listaCompleta.get(maior).getMedia()){
+                    maior = i;
+                }
+            }
+            listaOrdenada.add(listaCompleta.get(maior));
+            listaCompleta.remove(maior);
+            maior = 0;
+        }while(listaCompleta.size() > 0);
+
+        for(nomeMedia n : listaOrdenada){
+            System.out.println("Designação: " + n.getNome() + "   Producao média: " + n.getMedia());
+        }
 
     }
 }
