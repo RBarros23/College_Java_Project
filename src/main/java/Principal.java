@@ -57,6 +57,7 @@ public class Principal {
                         op = menuStats();
                         switch (op){
                             case 1: //Lista de centrais fotovoltaicas com mais de 10000 painéis
+                                gerirCentrais.fotovoltMaisX(fotovolt);
                                 break;
                             case 2: //Numero de funcionários por empresa
                                 gerirEmpresas.mediaEmpregados(emp);
@@ -64,6 +65,7 @@ public class Principal {
                             case 3: //Médias de produção de energética
                                 break;
                             case 4: //Total de produção energética anual por tipo
+                                gerirCentrais.totalProdTipo(hidro, fotovolt, eolica);
                                 break;
                             case 0: //Voltar para o menu principal
                                 break;

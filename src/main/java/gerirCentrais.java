@@ -1,5 +1,6 @@
 import util.Consola;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -74,17 +75,21 @@ public class gerirCentrais {
     }
 
     private static void adicionarEolica(ArrayList<Eolica> eolica){
-        int numIdentificacao, potenciaAnual;
+        int numIdentificacao, potenciaAnual, numAeroger, potCadaAeroger;
         String designacao, localidade;
-        int[] dataInauguracao;
+        int[] dataInauguracao, potenciaCadaAno;
 
         numIdentificacao = eolica.size() + 1;
         designacao = Consola.lerString("Designação da central: ");
         localidade = Consola.lerString("Localização: ");
         potenciaAnual = Consola.lerInt("Potencia anual (GW): ", 1, 999999);
+        numAeroger = Consola.lerInt("Quantidade de aerogeradores: ", 1, 999999);
+        potCadaAeroger = Consola.lerInt("Potencia de cada aerogerador (MW): ", 1, 999999);
         System.out.println("Data de inicio de funcionamento:");
         dataInauguracao = Principal.lerData();
-        eolica.add(new Eolica(numIdentificacao, designacao, localidade, dataInauguracao, potenciaAnual));
+        potenciaCadaAno = potenciaCadaAno(dataInauguracao[2]);
+
+        eolica.add(new Eolica(numIdentificacao, designacao, localidade, numAeroger*potCadaAeroger, dataInauguracao, potenciaAnual, potenciaCadaAno, potCadaAeroger, numAeroger));
     }
 
     private static int[] potenciaCadaAno(int ano){
@@ -145,6 +150,88 @@ public class gerirCentrais {
         else{
             System.out.println("Não existem centrais registadas!");
         }
+    }
+
+    public static void fotovoltMaisX(ArrayList<Fotovoltaica> foto){
+        int conta = 0;
+        for(Fotovoltaica f : foto){
+            if(f.getNumPaineis() >= 10000){
+                System.out.println(f.toString());
+                conta ++;
+            }
+        }
+        if(conta == 0)
+            System.out.println("Não existem centrais com mais de 10000 paineis!");
+    }
+
+    public static void totalProdTipo(ArrayList<Hidroeletrica> hidro, ArrayList<Fotovoltaica> foto, ArrayList<Eolica> eoli){
+        int contaHidro = 0, contaFoto = 0, contaEolica = 0;
+
+        for(Hidroeletrica h : hidro){
+            contaHidro += h.getPotenciaProduzidaAnual();
+        }
+        for(Fotovoltaica f : foto){
+            contaFoto += f.getPotenciaProduzidaAnual();
+        }
+        for(Eolica e : eoli){
+            contaEolica += e.getPotenciaProduzidaAnual();
+        }
+
+        System.out.println("Potencia dos Hidroeletricos: " + contaHidro);
+        System.out.println("Potencia dos Fotovoltaicos: " + contaFoto);
+        System.out.println("Potencia das Eolicas: " + contaEolica);
+
+    }
+
+    private static void mediaHidro(ArrayList<Hidroeletrica> hidro){
+        int media, valorBruto = 0;
+        int[] potencias;
+
+        for(Hidroeletrica h : hidro){
+            potencias =  h.getPotenciaCadaAno();
+            for(int i = 0; i < potencias.length; i++){
+                valorBruto += potencias[i];
+            }
+            media = valorBruto / potencias.length;
+            h.setMediaProducao(media);
+        }
+    }
+
+    private static void mediaFoto(ArrayList<Fotovoltaica> foto){
+        int media, valorBruto = 0;
+        int[] potencias;
+
+        for(Fotovoltaica f : foto){
+            potencias = f.getPotenciaCadaAno();
+            for(int i = 0; i < potencias.length; i++){
+                valorBruto += potencias[i];
+            }
+            media = valorBruto / potencias.length;
+            f.setMediaProducao(media);
+        }
+    }
+
+    private static void mediaEolica(ArrayList<Eolica> eolica){
+        int media, valorBruto = 0;
+        int[] potencias;
+
+        for(Eolica e : eolica){
+            potencias = e.getPotenciaCadaAno();
+            for(int i = 0; i < potencias.length; i++){
+                valorBruto += potencias[i];
+            }
+            media = valorBruto / potencias.length;
+            e.setMediaProducao(media);
+        }
+    }
+
+    public static void mediaOrdenada(ArrayList<Hidroeletrica> hidro, ArrayList<Fotovoltaica> foto, ArrayList<Eolica> eolica){
+        mediaHidro(hidro);
+        mediaFoto(foto);
+        mediaEolica(eolica);
+
+
+
     }
 }
 

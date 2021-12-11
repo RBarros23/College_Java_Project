@@ -14,7 +14,9 @@ public class Fotovoltaica extends Central implements Serializable {
         super();
     }
 
-    public Fotovoltaica(int numIdentificacao, String designacao, String localidade, int potencia, int[] dataInauguracao,int potenciaAnual, int[] potenciaCadaAno, int area, int numPaineis, int potenciaPainel){
+    public Fotovoltaica(int numIdentificacao, String designacao, String localidade, int potencia, int[] dataInauguracao,
+                        int potenciaAnual, int[] potenciaCadaAno, int area, int numPaineis, int potenciaPainel){
+
         super(numIdentificacao, designacao, localidade, potencia, dataInauguracao, potenciaAnual, potenciaCadaAno);
         this.area = area;
         this.numPaineis = numPaineis;
@@ -40,6 +42,10 @@ public class Fotovoltaica extends Central implements Serializable {
             potencia += e.getPotencia();
         }
         super.setPotencia(potencia);
+    }
+
+    public int getNumPaineis() {
+        return numPaineis;
     }
 
     @Override

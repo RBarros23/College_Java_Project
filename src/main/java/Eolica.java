@@ -1,10 +1,9 @@
 import java.io.Serializable;
 import java.util.ArrayList;
-/*
-* Atualização do numero de aerogeradores e a potencia total é atualizada no gerirEquipamentos quando é associado um equipamento novo ao Arraylist equip
-* */
+
 public class Eolica extends Central implements Serializable {
     private int numAeroger;
+    private int potCadaAeroger;
     private String tipoEquipamento = "A";
     private ArrayList<Equipamento> equip = new ArrayList<Equipamento>();
 
@@ -12,8 +11,10 @@ public class Eolica extends Central implements Serializable {
         super();
     }
 
-    public Eolica(int numIdentificacao, String designacao, String localidade, int[] dataInauguracao, int potenciaAnual){
-        super(numIdentificacao, designacao, localidade, dataInauguracao, potenciaAnual);
+    public Eolica(int numIdentificacao, String designacao, String localidade, int potencia, int[] dataInauguracao, int potenciaAnual, int[] potenciaCadaAno, int potCadaAeroger, int numAeroger){
+        super(numIdentificacao, designacao, localidade, potencia, dataInauguracao, potenciaAnual, potenciaCadaAno);
+        this.potCadaAeroger = potCadaAeroger;
+        this.numAeroger =numAeroger;
     }
 
     @Override
@@ -25,6 +26,7 @@ public class Eolica extends Central implements Serializable {
                     ", Localidade: " + getLocalidade() +
                     ", Potencia instalada (MW): " + getPotencia() +
                     ", Numero de Aerogeradores: " + numAeroger +
+                    ", Potencia cada aerogerador: " + potCadaAeroger +
                     ", Tipo de equipamentos instalados: " + tipoEquipamento +
                     ", Donos: " + getDonos();
         }
@@ -34,6 +36,7 @@ public class Eolica extends Central implements Serializable {
                 ", Localidade: " + getLocalidade() +
                 ", Potencia instalada (MW): " + getPotencia() +
                 ", Numero de Aerogeradores: " + numAeroger +
+                ", Potencia cada aerogerador: " + potCadaAeroger +
                 ", Tipo de equipamentos instalados: " + tipoEquipamento;
     }
 
