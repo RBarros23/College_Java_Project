@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class gerirEmpregados {
 
     /**
-     * Permite Verificar se o nif introduzido j
+     * Permite Verificar se o nif introduzido jd
      */
     private static Boolean verNifTrab(ArrayList<Funcionarios> f, int nif) {
         for (Funcionarios i : f) {
