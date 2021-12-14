@@ -1,11 +1,17 @@
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * Classe onde estão definidas os atributos e metodos necessários para a criação de uma Central
+ *
+ * @author Rui Barros & Rui Vitorino
+ * */
+
 public class Central implements Serializable{
-    private int numIdentificacao; //unico e sequencial definido no main
+    private int numIdentificacao;
     private String designacao;
     private String localidade;
-    private int potencia; //potencia instalada
+    private int potencia;
     private int potenciaProduzidaAnual;
     private int mediaProducao;
     private int[] potenciaCadaAno;
@@ -15,7 +21,6 @@ public class Central implements Serializable{
 
     public Central() {}
 
-    /**Construtor utilizado por Hidroeletricas*/
     public Central(int numIdentificacao, String designacao,String localidade, int potencia, int[] dataInauguracao, int potenciaProduzidaAnual, int[] potenciaCadaAno){
         this.numIdentificacao = numIdentificacao;
         this.designacao = designacao;

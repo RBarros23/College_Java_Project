@@ -1,9 +1,17 @@
 import util.Consola;
-
 import java.util.ArrayList;
+
+/**Classe que disponibiliza um conjunto de metodos para gerir as informações das empresas
+ *
+ * @author Rui Barros & Rui Vitorino
+ * */
 
 public class gerirEmpresas {
 
+    /**Apresenta menu com opção de inserir ou consultar empresa
+     *
+     * @param emp Arraylist onde estão armazenadas todas as empresas
+     * */
     public static void insConsEmpresa(ArrayList<Empresas> emp){
         int opcao = 0;
         opcao = Consola.lerInt("Inserir (1) ou Consultar (2) (Voltar ao menu principal (0)): ", 0, 2);
@@ -19,6 +27,10 @@ public class gerirEmpresas {
         }
     }
 
+    /**Inserir empresa no Arraylist emp
+     *
+     * @param emp Arraylist onde estão armazenadas todas as empresas
+     * */
     private static void inserirEmpresa(ArrayList<Empresas> emp){
         String nome, morada;
         int nif = 0;
@@ -41,6 +53,12 @@ public class gerirEmpresas {
 
     }
 
+    /**Verifica se já existe alguma empresa com o NIF desejado
+     *
+     * @param e Arraylist onde estão armazenadas todas as empresas
+     * @param nif NIF que o utilizador deseja utilizar
+     * @return true caso já existe alguma empresa com esse NIF e false caso seja possivel adicionar
+     * */
     private static Boolean verNifEmp(ArrayList<Empresas> e, int nif){
         for(Empresas i : e){
             if(nif == i.getNif()){
@@ -51,6 +69,15 @@ public class gerirEmpresas {
         return false;
     }
 
+    /** Associar empresa a uma central
+     *
+     * @param emp Arraylist onde estão armazenadas todas as empresas
+     * @param eolica Arraylist onde estão as centrais eolicas para associar donos
+     * @param hidro Arraylist onde estão as centrais hidroelétricas para associar donos
+     * @param fotovolt Arraylist onde estão as centrais fotovoltaicas para associar donos
+     * @param totalCentrais numero utilizado para verificar que existem centrais para poder associar empresas
+     *
+     * */
     public static void assosEmpresa(ArrayList<Empresas> emp, ArrayList<Hidroeletrica> hidro, ArrayList<Fotovoltaica> fotovolt, ArrayList<Eolica> eolica, int totalCentrais) {
         int nifEmp = -1, indiceEmp = -1, opcaoCentral = -1, contaAdi = 0;
 
@@ -99,6 +126,12 @@ public class gerirEmpresas {
             System.out.println("Não existem centrais/empresas, adicione primeiro!");
     }
 
+
+    /** Apresenta uma lista das empresas organizadas pela quantidade de funcionários associados a ela
+     *
+     *
+     * @param emp Arraylist onde estão armazenadas todas as empresas com os seus funcionarios
+     * */
     public static void mediaEmpregados(ArrayList<Empresas> emp) {
         int maior = 0;
         ArrayList<Empresas> empresasOrdenadas = new ArrayList<>();

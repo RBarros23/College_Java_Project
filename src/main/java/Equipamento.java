@@ -1,5 +1,10 @@
 import java.io.Serializable;
 
+/**
+ * Classe onde estão definidas os atributos e metodos necessários para a criação de um equipamento
+ *
+ * @author Rui Barros & Rui Vitorino
+ * */
 public class Equipamento implements Serializable {
     private String designacao; //Única
     private String fabricante;

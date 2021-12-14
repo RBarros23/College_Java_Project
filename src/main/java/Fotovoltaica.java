@@ -1,7 +1,13 @@
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
-//Potencia é a soma das potencias dos equipamentos guardados no Arraylist equip
+
+/**
+ * Classe onde estão definidas os atributos especificos de uma central Fotovoltaica
+ * e metodos necessários para a sua criação
+ *
+ * @author Rui Barros & Rui Vitorino
+ * */
+
 public class Fotovoltaica extends Central implements Serializable {
     private int area;
     private int numPaineis;

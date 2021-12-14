@@ -1,6 +1,13 @@
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * Classe onde estão definidas os atributos especificos de uma central Eolica
+ * e metodos necessários para a sua criação
+ *
+ * @author Rui Barros & Rui Vitorino
+ * */
+
 public class Eolica extends Central implements Serializable {
     private int numAeroger;
     private int potCadaAeroger;
@@ -15,10 +22,6 @@ public class Eolica extends Central implements Serializable {
         super(numIdentificacao, designacao, localidade, potencia, dataInauguracao, potenciaAnual, potenciaCadaAno);
         this.potCadaAeroger = potCadaAeroger;
         this.numAeroger =numAeroger;
-    }
-
-    public ArrayList<Equipamento> getEquip() {
-        return equip;
     }
 
     public void addEquip(Equipamento e){  //confirmar no main se é do tipo A

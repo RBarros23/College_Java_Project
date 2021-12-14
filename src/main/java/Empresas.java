@@ -1,6 +1,12 @@
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * Classe onde estão definidas os atributos e metodos necessários para a criação de uma Empresa
+ *
+ * @author Rui Barros & Rui Vitorino
+ * */
+
 public class Empresas implements Serializable {
     private String nome;
     private String morada;

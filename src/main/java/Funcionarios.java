@@ -1,5 +1,10 @@
 import java.io.Serializable;
 
+/**
+ * Classe onde estão definidas os atributos e metodos necessários para a criação de um funcionário
+ *
+ * @author Rui Barros & Rui Vitorino
+ * */
 
 public class Funcionarios implements Serializable{
     private String nome;

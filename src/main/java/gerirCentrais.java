@@ -1,12 +1,19 @@
 import util.Consola;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 
+/** Classe que disponibiliza um conjunto de metodos para gerir as informações das centrais
+ *
+ * @author Rui Barros & Rui Vitorino
+ * */
 public class gerirCentrais {
 
+    /** Apresenta menu para o utilizador escolher se pretende inserir ou consultar centrais
+     *
+     * @param hidro Arraylist onde estão todas as centrais do tipo Hidroelétricas
+     * @param fotovolt  Arraylist onde estão todas as centrais do tipo Fotovoltaicas
+     * @param eolica  Arraylist onde estão todas as centrais do tipo eolicas
+     * */
     public static void insConsulCentrais(ArrayList<Hidroeletrica> hidro, ArrayList<Fotovoltaica> fotovolt, ArrayList<Eolica> eolica){
         int opcao;
         opcao = Consola.lerInt("1 - Inserir central, 2 - Consultar centrais (por localidade) (0 para recuar) ", 0, 2);
@@ -20,9 +27,16 @@ public class gerirCentrais {
         }
     }
 
+    /** Pergunta ao utilizador qual o tipo de central que quer adicionar
+     *
+     *
+     * @param hidro Arraylist onde estão todas as centrais do tipo Hidroelétricas
+     * @param fotovolt  Arraylist onde estão todas as centrais do tipo Fotovoltaicas
+     * @param eolica  Arraylist onde estão todas as centrais do tipo eolicas
+     * */
     private static void tipoCentralAdicionar(ArrayList<Hidroeletrica> hidro, ArrayList<Fotovoltaica> fotovolt, ArrayList<Eolica> eolica){
         int opcao;
-        opcao = Consola.lerInt("Qual o tipo de central que deseja adicionar:\n" +
+        opcao = Consola.lerInt("Qual o tipo de central que deseja adicionar (0 para voltar a trás):\n" +
                 "1 - Hidroelétrica\n" + "2 - Fotovoltaica\n" + "3 - Eólica ", 0, 3);
         switch (opcao){
             case 1:
@@ -37,6 +51,11 @@ public class gerirCentrais {
         }
     }
 
+    /**Adiciona centrais do tipo Hidroeletricas ao Arraylist hidro
+     *
+     *
+     * @param hidro Arraylist onde será guardada a central
+     * */
     private static void adicionarHidro(ArrayList<Hidroeletrica> hidro){
         int numIdentificacao, potencia, capacidade, potenciaProduzidaAnual;
         String designacao, localidade, cursoAgua, aproveitamento;
@@ -57,6 +76,11 @@ public class gerirCentrais {
         hidro.add(new Hidroeletrica(numIdentificacao, designacao, localidade, potencia, dataAssociado, potenciaProduzidaAnual, potenciaCadaAno, cursoAgua, aproveitamento, capacidade));
     }
 
+    /**Adiciona centrais do tipo Fotovoltaica ao Arraylist fotovolt
+     *
+     *
+     * @param fotovolt Arraylist onde será guardada a central
+     * */
     private static void adicionarFoto(ArrayList<Fotovoltaica> fotovolt){
         int numIdentificacao, area, potenciaAnual, numPaineis, potenciaPainel;
         String designacao, localidade;
@@ -75,6 +99,11 @@ public class gerirCentrais {
         fotovolt.add(new Fotovoltaica(numIdentificacao, designacao, localidade,numPaineis*potenciaPainel ,dataInauguracao, potenciaAnual, potenciaCadaAno, area, numPaineis, potenciaPainel));
     }
 
+    /** Adiciona centrais do tipo Eolica ao Arraylist eolica
+     *
+     *
+     * @param eolica Arraylist onde será guardada a central
+     * */
     private static void adicionarEolica(ArrayList<Eolica> eolica){
         int numIdentificacao, potenciaAnual, numAeroger, potCadaAeroger;
         String designacao, localidade;
@@ -93,6 +122,10 @@ public class gerirCentrais {
         eolica.add(new Eolica(numIdentificacao, designacao, localidade, numAeroger*potCadaAeroger, dataInauguracao, potenciaAnual, potenciaCadaAno, potCadaAeroger, numAeroger));
     }
 
+    /**Pede ao utilizador a potencia produzida em cada ano desde o ano de fundação
+     *
+     * @param ano ano de fundação
+     * */
     private static int[] potenciaCadaAno(int ano){
         Calendar c = Calendar.getInstance();
         int anoAtual = c.get(Calendar.YEAR);
@@ -107,6 +140,12 @@ public class gerirCentrais {
         return potencias;
     }
 
+    /** Apresenta todas as centrais que estejam na localidade escolhida pelo utilizador
+     *
+     * @param hidro Arraylist onde estão todas as centrais do tipo Hidroelétricas
+     * @param fotovolt  Arraylist onde estão todas as centrais do tipo Fotovoltaicas
+     * @param eolica  Arraylist onde estão todas as centrais do tipo eolicas
+     * */
     private static void procurarLocalidade(ArrayList<Hidroeletrica> hidro, ArrayList<Fotovoltaica> fotovolt, ArrayList<Eolica> eolica) {
         int check = 0;
         String localidade;
@@ -153,6 +192,10 @@ public class gerirCentrais {
         }
     }
 
+    /** Apresenta todas as centrais fotovoltaicas com mais de 10000 paineis
+     *
+     * @param foto Arraylist onde estão todas as centrais com todos os paineis associados
+     * */
     public static void fotovoltMaisX(ArrayList<Fotovoltaica> foto){
         int conta = 0;
         for(Fotovoltaica f : foto){
@@ -165,6 +208,12 @@ public class gerirCentrais {
             System.out.println("Não existem centrais com mais de 10000 paineis!");
     }
 
+    /** Apresenta a energia produzida por cada tipo de central
+     *
+     * @param hidro Arraylist onde estão todas as centrais do tipo Hidroelétricas
+     * @param foto  Arraylist onde estão todas as centrais do tipo Fotovoltaicas
+     * @param eoli  Arraylist onde estão todas as centrais do tipo eolicas
+     * */
     public static void totalProdTipo(ArrayList<Hidroeletrica> hidro, ArrayList<Fotovoltaica> foto, ArrayList<Eolica> eoli){
         int contaHidro = 0, contaFoto = 0, contaEolica = 0;
 
@@ -178,12 +227,16 @@ public class gerirCentrais {
             contaEolica += e.getPotenciaProduzidaAnual();
         }
 
-        System.out.println("Potencia dos Hidroeletricos: " + contaHidro);
-        System.out.println("Potencia dos Fotovoltaicos: " + contaFoto);
-        System.out.println("Potencia das Eolicas: " + contaEolica);
+        System.out.println("Potencia produzida dos Hidroeletricos: " + contaHidro);
+        System.out.println("Potencia produzida dos Fotovoltaicos: " + contaFoto);
+        System.out.println("Potencia produzida das Eolicas: " + contaEolica);
 
     }
 
+    /** Calcula a média de energia produzida por centrais do tipo hidroeletrica ao longo dos anos
+     *
+     * @param hidro Arraylist onde estão todas as centrais do tipo Hidroelétricas
+     * */
     private static void mediaHidro(ArrayList<Hidroeletrica> hidro){
         int media, valorBruto = 0;
         int[] potencias;
@@ -201,6 +254,10 @@ public class gerirCentrais {
         }
     }
 
+    /** Calcula a média de energia produzida por centrais do tipo fotovoltaica ao longo dos anos
+     *
+     * @param foto Arraylist onde estão todas as centrais do tipo Fotovoltaica
+     * */
     private static void mediaFoto(ArrayList<Fotovoltaica> foto){
         int media, valorBruto = 0;
         int[] potencias;
@@ -218,6 +275,10 @@ public class gerirCentrais {
         }
     }
 
+    /** Calcula a média de energia produzida por centrais do tipo Eolica ao longo dos anos
+     *
+     * @param eolica Arraylist onde estão todas as centrais do tipo Eolica
+     * */
     private static void mediaEolica(ArrayList<Eolica> eolica){
         int media, valorBruto = 0;
         int[] potencias;
@@ -236,6 +297,14 @@ public class gerirCentrais {
         }
     }
 
+    /** Apresenta a media de produção energética em cada central ordenada por ordem decrescente da média
+     * desde que entraram ao serviço
+     *
+     *
+     * @param hidro Arraylist onde estão todas as centrais do tipo Hidroelétricas
+     * @param foto  Arraylist onde estão todas as centrais do tipo Fotovoltaicas
+     * @param eolica  Arraylist onde estão todas as centrais do tipo eolicas
+     * */
     public static void mediaOrdenada(ArrayList<Hidroeletrica> hidro, ArrayList<Fotovoltaica> foto, ArrayList<Eolica> eolica){
         int maior = 0;
         mediaHidro(hidro);

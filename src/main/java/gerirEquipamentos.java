@@ -1,10 +1,20 @@
 import util.Consola;
 import java.util.ArrayList;
-/**Nesta class estão todas as funções necessárias para tratar dos equipamentos
+
+/**Classe que disponibiliza um conjunto de metodos para gerir as informações dos equipamentos
+ *
+ * @author Rui Barros & Rui Vitorino
  * */
 
 public class gerirEquipamentos {
 
+    /**
+     * Apresenta ao utilizador um menu para gestão dos equipamentos
+     *
+     * @param equipamentos Arraylist onde estão todos os equipamentos
+     * @param fotovolt Arraylist onde estão todas as centrais fotovoltaicas
+     * @param eolica Arraylist onde estão todas as centrais eolicas
+     * */
     public static void insConsultarEquipamentos(ArrayList<Equipamento> equipamentos, ArrayList<Fotovoltaica> fotovolt, ArrayList<Eolica> eolica){
         int opcao = Consola.lerInt("1 - Inserir, 2 - Associar Equipamento, 3 - Consultar (por tipo) 4 - Alterar equipamento (0 para voltar)", 0, 3);
 
@@ -19,12 +29,19 @@ public class gerirEquipamentos {
                 consultarEquipTipo(equipamentos);
                 break;
             case 4:
-                alterarEquip(equipamentos, fotovolt, eolica);
+                alterarEquip(equipamentos);
                 break;
 
         }
     }
 
+    /**
+     * Inserir um equipamento no Arraylist equipamentos e depois pede para associar
+     *
+     * @param equipamentos Arraylist de todos os equipamentos para serem associados
+     * @param fotovolt Arraylist de centrais fotovoltaicas para associar equipamentos do tipo P
+     * @param eolica Arraylist de centrais eolicas para associar equipamentos do tipo A
+     * */
     private static void insEquipamentos(ArrayList<Equipamento> equipamentos, ArrayList<Fotovoltaica> fotovolt, ArrayList<Eolica> eolica){
         String designacao, fabricante, modelo, tipo;
         int potencia, check, adicionar;
@@ -58,8 +75,9 @@ public class gerirEquipamentos {
     }
 
     /**
-     * Funcao utilizada para pedir o tipo de equipamento
-     * Foi criada esta função porque é necessário pedir o tipo de equipamento em vários locais
+     * Pede ao utilizador o tipo de equipamento (P ou A)
+     *
+     * @return o tipo escolhido P ou A
      * */
     private static String pedirTipoEquip(){
         String tipo;
@@ -72,6 +90,13 @@ public class gerirEquipamentos {
         return tipo;
     }
 
+    /**
+     * Permite associar um equipamento a uma central
+     *
+     * @param equipamentos Arraylist de todos os equipamentos para serem associados
+     * @param fotovolt Arraylist de centrais fotovoltaicas para associar equipamentos do tipo P
+     * @param eolica Arraylist de centrais eolicas para associar equipamentos do tipo A
+     * */
     public static void associarEquip(ArrayList<Equipamento> equipamentos, int indiceEquip , ArrayList<Fotovoltaica> fotovolt, ArrayList<Eolica> eolica){
         int numCentral;
         int[] dataAssociacao;
@@ -117,8 +142,11 @@ public class gerirEquipamentos {
     }
 
     /**Verificar se já existe algum equipamento com essa designação
-     * Se existir devolve o indice
-     * Se nao existir devolve -1*/
+     *
+     * @param equipamentos Arraylist com todos os equipamentos
+     * @param designacao designação a procurar
+     * @return -1 caso não exista nenhuma designação igual
+     * */
     private static int veriDesignacao(ArrayList<Equipamento> equipamentos, String designacao){
         for(int i = 0; i < equipamentos.size(); i++){
             if(equipamentos.get(i).getDesignacao().equalsIgnoreCase(designacao)){
@@ -129,8 +157,10 @@ public class gerirEquipamentos {
         return -1;
     }
 
-    /**
-     * Consultar equipamento por tipo (P ou A)*/
+    /**Apresenta todos os equipamentos pelo tipo escolhido
+     *
+     * @param equipamentos Arraylist onde tem todos os equipamentos
+     * */
     private static void consultarEquipTipo(ArrayList<Equipamento> equipamentos){
         int contador = 0;
         String opcao;
@@ -150,9 +180,7 @@ public class gerirEquipamentos {
             case "A":
                 for(Equipamento equip : equipamentos){
                     if(equip.getTipo().equalsIgnoreCase(opcao)){
-                        System.out.println("TESTE");
                         System.out.println(equip.toString());
-                        System.out.println("TESTE");
                         contador ++;
                     }
                 }
@@ -164,7 +192,11 @@ public class gerirEquipamentos {
         }
     }
 
-    private static void alterarEquip(ArrayList<Equipamento> equipamentos, ArrayList<Fotovoltaica> fotovolt, ArrayList<Eolica> eolica){
+    /** Menu para escolher a alteração a fazer a um equipamento
+     *
+     * @param equipamentos Arraylist com todos os equipamentos
+     * */
+    private static void alterarEquip(ArrayList<Equipamento> equipamentos){
         String designacao;
         int check = 0, opcao = 0, indice = 0;
         do {
@@ -200,7 +232,12 @@ public class gerirEquipamentos {
                 break;
         }
     }
-    /**Alterar a designacao*/
+
+    /**Alterar a designacao do equipamento
+     *
+     * @param equipamentos Arraylist com todos os equipamentos
+     * @param indiceEquip localização do equipamento dentro do Arraylist equipamentos
+     * */
     private static void alterarDesignacao(ArrayList<Equipamento> equipamentos, int indiceEquip){
         String novaDesignacao;
         int check;
@@ -213,18 +250,33 @@ public class gerirEquipamentos {
         equipamentos.get(indiceEquip).setDesignacao(novaDesignacao);
     }
 
+    /**Alterar o fabricante do equipamento
+     *
+     * @param equipamentos Arraylist com todos os equipamentos
+     * @param indiceEquip localização do equipamento dentro do Arraylist equipamentos
+     * */
     private static void alterarFabricante(ArrayList<Equipamento> equipamentos, int indiceEquip){
         String novoFabricante;
         novoFabricante = Consola.lerString("Qual o novo nome do fabricante: ");
         equipamentos.get(indiceEquip).setFabricante(novoFabricante);
     }
 
+    /**Alterar o modelo do equipamento
+     *
+     * @param equipamentos Arraylist com todos os equipamentos
+     * @param indiceEquip localização do equipamento dentro do Arraylist equipamentos
+     * */
     private static void alterarModelo(ArrayList<Equipamento> equipamentos, int indiceEquip){
         String novoModelo;
         novoModelo = Consola.lerString("Qual o novo nome do modelo: ");
         equipamentos.get(indiceEquip).setModelo(novoModelo);
     }
 
+    /**Alterar a potencia do equipamento
+     *
+     * @param equipamentos Arraylist com todos os equipamentos
+     * @param indiceEquip localização do equipamento dentro do Arraylist equipamentos
+     * */
     private static void alterarPotencia(ArrayList<Equipamento> equipamentos, int indiceEquip){
         int novaPotencia;
         novaPotencia = Consola.lerInt("Nova potencia: ", 1, 99999);

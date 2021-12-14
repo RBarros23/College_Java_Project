@@ -81,6 +81,7 @@ public class Principal {
             }
         }while(opcao != 0);
     }
+
     /**
      * Apresenta ao utilizador as funcionalidades principais
      *
