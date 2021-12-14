@@ -3,6 +3,13 @@ import java.util.ArrayList;
 
 import util.Consola;
 
+/**
+ * Classe onde é apresentado o menu principal, sub-menu de estatisticas, gravação e
+ * leitura de dados e leitura de datas
+ *
+ * @author Rui Barros & Rui Vitorino
+ * */
+
 
 public class Principal {
 
@@ -74,7 +81,14 @@ public class Principal {
             }
         }while(opcao != 0);
     }
-
+    /**
+     * Apresenta ao utilizador as funcionalidades principais
+     *
+     * @param totalEolica quantas centrais Eolicas existem registadas no momento
+     * @param totalFotovol quantas centrais Eolicas existem registadas no momento
+     * @param totalHidro quantas centrais Hidroelétricas existem registadas no momento
+     * @return opção selecionada pelo utilizador
+     * */
     public static int menuInicial(int totalHidro, int totalFotovol, int totalEolica){
         System.out.println("\nNúmero de centrais:");
         System.out.println("Hidroeletrica: "+ totalHidro + " Fotovoltaicas: " + totalFotovol + " Eolica: " +totalEolica );
@@ -89,15 +103,29 @@ public class Principal {
         return Consola.lerInt("Opção: ",0,7);
     }
 
+    /**
+     * Apresenta ao utilizador as funcionalidades sobre estatisticas
+     *
+     * @return opção selecionada pelo utilizador
+     * */
     public static int menuStats(){
         System.out.println("1 - Lista de centrais fotovoltaicas com mais de 10000 painéis.");
-        System.out.println("2 - Numero de funcionários por empresa."); //Ordenado por ordem crescente pelo nome da empresa
-        System.out.println("3 - Médias de produção de energética."); //Ordenadas por ordem decrescente da média e desde que entraram em serviço
+        System.out.println("2 - Numero de funcionários por empresa.");
+        System.out.println("3 - Médias de produção de energética.");
         System.out.println("4 - Total de produção energética anual por tipo.");
         System.out.println("0 - Voltar para o menu principal.");
         return Consola.lerInt("Opção: ",0,4);
     }
 
+    /**
+     * Grava os dados existentos sobre todas as empresas, funcionarios e centrais existentes
+     *
+     * @param emp Arraylist que contem todas as empresas e funcionários associados
+     * @param eolica Arraylist com todas as centrais eolicas e equipamentos que tem associados
+     * @param fotovolt Arraylist com todas as centrais fotovoltaicas e equipamentos que tem associados
+     * @param hidro Arraylist com todas as centrais hidroelétricas e equipamentos que tem associados
+     * @param equipamentos Arraylist com todos os equipamentos
+     * */
     public static void gravarFicheiro(ArrayList<Empresas> emp, ArrayList<Hidroeletrica> hidro, ArrayList<Fotovoltaica> fotovolt, ArrayList<Eolica> eolica, ArrayList<Equipamento> equipamentos){
         try{
             FileOutputStream gestao = new FileOutputStream("Gestao.dat");
@@ -115,6 +143,11 @@ public class Principal {
         }
     }
 
+    /**
+     * Pede ao utilizador uma data
+     *
+     * @return um array contendo a data - dia / mes / ano
+     * */
     public static int[] lerData(){
         int maxDiasMes,dia, mes, ano;
         ano = Consola.lerInt("Ano: ", 1910, 2022);

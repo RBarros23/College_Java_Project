@@ -1,9 +1,15 @@
 import java.io.Serializable;
 
+/**
+ * Classe onde estão definidas os atributos especificos de uma central Hidro elétrica
+ * e metodos necessários para a sua criação
+ *
+ * @author Rui Barros & Rui Vitorino
+ * */
 public class Hidroeletrica extends Central implements Serializable {
     private String cursoAgua;
-    private String aproveitamento; //por exemplo albufeira
-    private int capacidade; //Mm^3
+    private String aproveitamento;
+    private int capacidade;
 
 
     public Hidroeletrica(){
@@ -28,7 +34,7 @@ public class Hidroeletrica extends Central implements Serializable {
                     ", Potencia (MW): " + getPotencia() +
                     ", Curso de água: " + cursoAgua +
                     ", Aproveitamento: " + aproveitamento +
-                    ", Capacidade: " + capacidade +
+                    ", Capacidade (Mm^3): " + capacidade +
                     ", Donos: " + getDonos()
             ;
         }
@@ -39,7 +45,7 @@ public class Hidroeletrica extends Central implements Serializable {
                 ", Potencia (MW): " + getPotencia() +
                 ", Curso de água: " + cursoAgua +
                 ", Aproveitamento: " + aproveitamento +
-                ", Capacidade: " + capacidade;
+                ", Capacidade (Mm^3): " + capacidade;
     }
 
     public void setDonos(Empresas donos){

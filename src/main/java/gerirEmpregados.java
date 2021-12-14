@@ -9,7 +9,11 @@ import java.util.ArrayList;
 public class gerirEmpregados {
 
     /**
-     * Permite Verificar se o nif introduzido jd
+     * Permite Verificar se o nif introduzido já existe na base de dados ou não
+     *
+     * @param f Arraylist onde estão armazenados todos os funcionários
+     * @param nif NIF a procurar dentro do Arraylist f
+     * @return boolean, se já existir devolve false se não existir devolve verdadeiro
      */
     private static Boolean verNifTrab(ArrayList<Funcionarios> f, int nif) {
         for (Funcionarios i : f) {
@@ -21,6 +25,12 @@ public class gerirEmpregados {
         return true;
     }
 
+    /**
+     * Menu onde o utilizador decide se quer inserir um empregado numa empresa
+     * ou consultar um empregado
+     *
+     * @param emp Arraylist onde estão armazenadas todas as empresas
+     */
     public static void insConsEmpregado(ArrayList<Empresas> emp){
         int opcao = 0;
         opcao = Consola.lerInt("Inserir (1) ou Consultar por NIF (2) (Voltar ao menu principal (0)): ", 0, 2);
@@ -34,6 +44,11 @@ public class gerirEmpregados {
         }
     }
 
+    /**
+     * Inserir um empregado numa empresa
+     *
+     * @param emp Arraylist das empresas onde é armazenados os empregados
+     * */
     private static void inserirEmpregado(ArrayList<Empresas> emp){
         String nome, morada, funcao, nomeEmpresa;
         int nifFuncionario, telefone, contador = -1, indice = 0, nifEmpresa;
@@ -79,6 +94,12 @@ public class gerirEmpregados {
         }
     }
 
+
+    /**
+     * Permite consultar os dados de um empregado caso este exista
+     *
+     * @param emp Arraylist das empresas onde contem os empregados
+     * */
     private static void consultarEmpregado(ArrayList<Empresas> emp){
         int nif, contador = 0, contaEmpregados = 0;
 

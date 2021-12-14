@@ -14,15 +14,6 @@ public class Central implements Serializable{
 
 
     public Central() {}
-//    /**Construtor utilizado por Fotovoltaicos e Eolicas*/
-//    public Central(int numIdentificacao, String designacao,String localidade, int[] dataInauguracao, int potenciaProduzidaAnual, int[] potenciaCadaAno){
-//        this.numIdentificacao = numIdentificacao;
-//        this.designacao = designacao;
-//        this.localidade = localidade;
-//        this.dataInauguracao = dataInauguracao;
-//        this.potenciaProduzidaAnual = potenciaProduzidaAnual;
-//        this.potenciaCadaAno = potenciaCadaAno;
-//    }
 
     /**Construtor utilizado por Hidroeletricas*/
     public Central(int numIdentificacao, String designacao,String localidade, int potencia, int[] dataInauguracao, int potenciaProduzidaAnual, int[] potenciaCadaAno){
