@@ -29,8 +29,8 @@ public class Equipamento implements Serializable {
         return potencia;
     }
 
-    public int getNumCentral() {
-        return numCentral;
+    public String getDataAssociado() {
+        return dataAssociado[0] + "/" + dataAssociado[1] + "/" + dataAssociado[2];
     }
 
     public void setNumCentral(int numCentral) {
@@ -53,22 +53,18 @@ public class Equipamento implements Serializable {
         this.potencia = potencia;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
     public void setDataAssociado(int dia, int mes, int ano) {
         dataAssociado = new int[]{dia, mes, ano};
     }
 
     @Override
     public String toString() {
-        return "Equipamento{" +
-                "designacao='" + designacao + '\'' +
-                ", fabricante='" + fabricante + '\'' +
-                ", modelo='" + modelo + '\'' +
-                ", potencia=" + potencia +
-                ", tipo='" + tipo + '\'' +
-                '}';
+        return "\nDesignação: " + designacao +
+                ", Fabricante: " + fabricante +
+                ", Modelo: " + modelo +
+                ", Potencia: " + potencia +
+                ", Tipo: " + tipo +
+                ", Numero de identificação da central associada: " + numCentral +
+                ", Data de associação: " + getDataAssociado();
     }
 }

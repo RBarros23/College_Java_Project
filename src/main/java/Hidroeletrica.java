@@ -10,7 +10,6 @@ public class Hidroeletrica extends Central implements Serializable {
         super();
     }
 
-
     public Hidroeletrica(int numIdentificacao, String designacao, String localidade, int potencia, int[] dataInauguracao, int potenciaProduzidaAnual, int[] potenciaCadaAno,
                             String cursoAgua, String aproveitamento, int capacidade) {
         super(numIdentificacao, designacao, localidade, potencia, dataInauguracao, potenciaProduzidaAnual, potenciaCadaAno);

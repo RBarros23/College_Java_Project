@@ -17,29 +17,6 @@ public class Eolica extends Central implements Serializable {
         this.numAeroger =numAeroger;
     }
 
-    @Override
-    public String toString() {
-        if(getDonos().size() > 0) {
-            return "Designação: " + getDesignacao() +
-                    ", Numero de identificação: " + getNumIdentificacao() +
-                    ", Data da Inauguração: " + getdataInauguracao() +
-                    ", Localidade: " + getLocalidade() +
-                    ", Potencia instalada (MW): " + getPotencia() +
-                    ", Numero de Aerogeradores: " + numAeroger +
-                    ", Potencia cada aerogerador: " + potCadaAeroger +
-                    ", Tipo de equipamentos instalados: " + tipoEquipamento +
-                    ", Donos: " + getDonos();
-        }
-        return "Designação: " + getDesignacao() +
-                ", Numero de identificação: " + getNumIdentificacao() +
-                ", Data da Inauguração: " + getdataInauguracao() +
-                ", Localidade: " + getLocalidade() +
-                ", Potencia instalada (MW): " + getPotencia() +
-                ", Numero de Aerogeradores: " + numAeroger +
-                ", Potencia cada aerogerador: " + potCadaAeroger +
-                ", Tipo de equipamentos instalados: " + tipoEquipamento;
-    }
-
     public ArrayList<Equipamento> getEquip() {
         return equip;
     }
@@ -63,5 +40,28 @@ public class Eolica extends Central implements Serializable {
             potencia += e.getPotencia();
         }
         super.setPotencia(potencia);
+    }
+
+    @Override
+    public String toString() {
+        if(getDonos().size() > 0) {
+            return "Designação: " + getDesignacao() +
+                    ", Numero de identificação: " + getNumIdentificacao() +
+                    ", Data da Inauguração: " + getdataInauguracao() +
+                    ", Localidade: " + getLocalidade() +
+                    ", Potencia instalada (MW): " + getPotencia() +
+                    ", Numero de Aerogeradores: " + numAeroger +
+                    ", Potencia cada aerogerador: " + potCadaAeroger +
+                    ", Tipo de equipamentos instalados: " + tipoEquipamento +
+                    ", Donos: " + getDonos();
+        }
+        return "Designação: " + getDesignacao() +
+                ", Numero de identificação: " + getNumIdentificacao() +
+                ", Data da Inauguração: " + getdataInauguracao() +
+                ", Localidade: " + getLocalidade() +
+                ", Potencia instalada (MW): " + getPotencia() +
+                ", Numero de Aerogeradores: " + numAeroger +
+                ", Potencia cada aerogerador: " + potCadaAeroger +
+                ", Tipo de equipamentos instalados: " + tipoEquipamento;
     }
 }

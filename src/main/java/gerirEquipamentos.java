@@ -72,7 +72,6 @@ public class gerirEquipamentos {
         return tipo;
     }
 
-
     public static void associarEquip(ArrayList<Equipamento> equipamentos, int indiceEquip , ArrayList<Fotovoltaica> fotovolt, ArrayList<Eolica> eolica){
         int numCentral;
         int[] dataAssociacao;
@@ -134,7 +133,7 @@ public class gerirEquipamentos {
      * Consultar equipamento por tipo (P ou A)*/
     private static void consultarEquipTipo(ArrayList<Equipamento> equipamentos){
         int contador = 0;
-        String opcao = null;
+        String opcao;
         opcao = pedirTipoEquip();
 
         switch (opcao){
@@ -165,7 +164,6 @@ public class gerirEquipamentos {
         }
     }
 
-    /**FALTA ALTERAR TIPO*/
     private static void alterarEquip(ArrayList<Equipamento> equipamentos, ArrayList<Fotovoltaica> fotovolt, ArrayList<Eolica> eolica){
         String designacao;
         int check = 0, opcao = 0, indice = 0;
@@ -185,7 +183,7 @@ public class gerirEquipamentos {
         }while(check == 0);
         if(!designacao.equalsIgnoreCase("0")) {
             opcao = Consola.lerInt("Que informação quer alterar:\n" +
-                    "1 - Designação\n" + "2 - Fabricante\n" + "3 - Modelo\n" + "4 - Potencia\n" + "5 - Tipo ", 1, 5);
+                    "1 - Designação\n" + "2 - Fabricante\n" + "3 - Modelo\n" + "4 - Potencia\n", 1, 4);
         }
         switch (opcao){
             case 1: //Designação
@@ -199,9 +197,6 @@ public class gerirEquipamentos {
                 break;
             case 4: //potencia
                 alterarPotencia(equipamentos, indice);
-                break;
-            case 5: //tipo
-                //alterarTipo(equipamentos, indice, fotovolt, eolica);
                 break;
         }
     }
@@ -235,22 +230,5 @@ public class gerirEquipamentos {
         novaPotencia = Consola.lerInt("Nova potencia: ", 1, 99999);
         equipamentos.get(indiceEquip).setPotencia(novaPotencia);
     }
-
-//    private static void alterarTipo(ArrayList<Equipamento> equipamentos, int indiceEquip, ArrayList<Fotovoltaica> fotovolt, ArrayList<Eolica> eolica){
-//        int indiceCentrais;
-//        String novoTipo;
-//        novoTipo = pedirTipoEquip();
-//        if(novoTipo != equipamentos.get(indiceEquip).getTipo()){
-//            if(equipamentos.get(indiceEquip).getTipo().equalsIgnoreCase("P")){
-//                for(Eolica e : eolica){
-//                    if(e.getEquip().contains(equipamentos.get(indiceEquip))){
-//                        e.getEquip().contains(equipamentos.get(indiceEquip)) = null;
-//                    }
-//                }
-//                equipamentos.get(indiceEquip).setTipo(novoTipo);
-//            }
-//        }
-//    }
-
 
 }
