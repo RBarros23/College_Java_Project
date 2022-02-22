@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 /**Classe que disponibiliza um conjunto de metodos para gerir as informações dos equipamentos
  *
- * @author Rui Barros & Rui Vitorino
+ * @author Rui Barros
  * */
 
 public class gerirEquipamentos {

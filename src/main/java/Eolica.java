@@ -5,7 +5,7 @@ import java.util.ArrayList;
  * Classe onde estão definidas os atributos especificos de uma central Eolica
  * e metodos necessários para a sua criação
  *
- * @author Rui Barros & Rui Vitorino
+ * @author Rui Barros
  * */
 
 public class Eolica extends Central implements Serializable {
@@ -13,29 +13,29 @@ public class Eolica extends Central implements Serializable {
     private int potCadaAeroger;
     private String tipoEquipamento = "A";
     private ArrayList<Equipamento> equip = new ArrayList<Equipamento>();
-
+    /***/
     public Eolica(){
         super();
     }
-
+    /***/
     public Eolica(int numIdentificacao, String designacao, String localidade, int potencia, int[] dataInauguracao, int potenciaAnual, int[] potenciaCadaAno, int potCadaAeroger, int numAeroger){
         super(numIdentificacao, designacao, localidade, potencia, dataInauguracao, potenciaAnual, potenciaCadaAno);
         this.potCadaAeroger = potCadaAeroger;
         this.numAeroger =numAeroger;
     }
-
+    /***/
     public void addEquip(Equipamento e){  //confirmar no main se é do tipo A
         equip.add(e);
     }
-
+    /***/
     public void setDonos(Empresas donos){
         super.setDonos(donos);
     }
-
+    /***/
     public void setNumAeroger() {
         numAeroger = equip.size();
     }
-
+    /***/
     public void setPotencia() {
         int potencia = 0;
         super.setPotencia(0);
@@ -44,7 +44,7 @@ public class Eolica extends Central implements Serializable {
         }
         super.setPotencia(potencia);
     }
-
+    /***/
     @Override
     public String toString() {
         if(getDonos().size() > 0) {

@@ -5,7 +5,7 @@ import java.util.ArrayList;
  * Classe onde estão definidas os atributos especificos de uma central Fotovoltaica
  * e metodos necessários para a sua criação
  *
- * @author Rui Barros & Rui Vitorino
+ * @author Rui Barros
  * */
 
 public class Fotovoltaica extends Central implements Serializable {
@@ -15,11 +15,11 @@ public class Fotovoltaica extends Central implements Serializable {
     private String tipoEquipamento = "P";
     private ArrayList<Equipamento> equip = new ArrayList<Equipamento>();
 
-
+    /***/
     public Fotovoltaica(){
         super();
     }
-
+    /***/
     public Fotovoltaica(int numIdentificacao, String designacao, String localidade, int potencia, int[] dataInauguracao,
                         int potenciaAnual, int[] potenciaCadaAno, int area, int numPaineis, int potenciaPainel){
 
@@ -28,19 +28,19 @@ public class Fotovoltaica extends Central implements Serializable {
         this.numPaineis = numPaineis;
         this.potenciaPainel = potenciaPainel;
     }
-
+    /***/
     public void addEquip(Equipamento e){  //confirmar no main se é do tipo P
         equip.add(e);
     }
-
+    /***/
     public void setDonos(Empresas donos){
         super.setDonos(donos);
     }
-
+    /***/
     public void setNumPaineis() {
         numPaineis = equip.size();
     }
-
+    /***/
     public void setPotencia(){
         int potencia = 0;
         super.setPotencia(0);
@@ -49,11 +49,11 @@ public class Fotovoltaica extends Central implements Serializable {
         }
         super.setPotencia(potencia);
     }
-
+    /***/
     public int getNumPaineis() {
         return numPaineis;
     }
-
+    /***/
     @Override
     public String toString() {
         if(getDonos().size() > 0){

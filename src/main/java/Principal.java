@@ -7,12 +7,12 @@ import util.Consola;
  * Classe onde é apresentado o menu principal, sub-menu de estatisticas, gravação e
  * leitura de dados e leitura de datas
  *
- * @author Rui Barros & Rui Vitorino
+ * @author Rui Barros
  * */
 
-
+/***/
 public class Principal {
-
+    /***/
     public static void main(String[] args) {
         ArrayList<Empresas> emp = new ArrayList<Empresas>();
         ArrayList<Hidroeletrica> hidro = new ArrayList<Hidroeletrica>();

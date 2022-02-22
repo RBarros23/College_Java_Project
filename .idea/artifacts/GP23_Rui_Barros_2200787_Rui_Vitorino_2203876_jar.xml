@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="GP23_Rui_Barros_2200787_Rui_Vitorino_2203876:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/GP23_Rui_Barros_2200787_Rui_Vitorino_2203876_jar</output-path>
+    <root id="archive" name="GP23_Rui_Barros_2200787_Rui_Vitorino_2203876.jar">
+      <element id="module-output" name="GP23_Rui_Barros_2200787_Rui_Vitorino_2203876" />
+    </root>
+  </artifact>
+</component>

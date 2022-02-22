@@ -4,7 +4,7 @@ import java.util.ArrayList;
 /**
  * Classe onde estão definidas os atributos e metodos necessários para a criação de uma Central
  *
- * @author Rui Barros & Rui Vitorino
+ * @author Rui Barros
  * */
 
 public class Central implements Serializable{
@@ -18,9 +18,9 @@ public class Central implements Serializable{
     private ArrayList<Empresas> donos = new ArrayList<>();
     int[] dataInauguracao;
 
-
+    /***/
     public Central() {}
-
+    /***/
     public Central(int numIdentificacao, String designacao,String localidade, int potencia, int[] dataInauguracao, int potenciaProduzidaAnual, int[] potenciaCadaAno){
         this.numIdentificacao = numIdentificacao;
         this.designacao = designacao;
@@ -30,55 +30,55 @@ public class Central implements Serializable{
         this.potenciaProduzidaAnual = potenciaProduzidaAnual;
         this.potenciaCadaAno = potenciaCadaAno;
     }
-
+    /***/
     public void setDonos(Empresas donos) {
         this.donos.add(donos);
     }
-
+    /***/
     public void setPotencia(int potencia) {
         this.potencia = potencia;
     }
-
+    /***/
     public void setMediaProducao(int mediaProducao) {
         this.mediaProducao = mediaProducao;
     }
-
-    public int getNumIdentificacao() { // será utilizado para confirmar se já existe o numero ou nao
+    /***/
+    public int getNumIdentificacao() {
         return numIdentificacao;
     }
-
+    /***/
     public String getdataInauguracao() {
         return dataInauguracao[0] + "/" + dataInauguracao[1] + "/" + dataInauguracao[2];
     }
-
+    /***/
     public String getDesignacao() {
         return designacao;
     }
-
+    /***/
     public String getLocalidade() {
         return localidade;
     }
-
+    /***/
     public int getPotencia() {
         return potencia;
     }
-
+    /***/
     public int getPotenciaProduzidaAnual() {
         return potenciaProduzidaAnual;
     }
-
+    /***/
     public int[] getPotenciaCadaAno() {
         return potenciaCadaAno;
     }
-
+    /***/
     public ArrayList<Empresas> getDonos() {
         return donos;
     }
-
+    /***/
     public int getMediaProducao() {
         return mediaProducao;
     }
-
+    /***/
     @Override
     public String toString() {
         return "";

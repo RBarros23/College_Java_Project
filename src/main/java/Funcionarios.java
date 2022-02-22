@@ -3,7 +3,7 @@ import java.io.Serializable;
 /**
  * Classe onde estão definidas os atributos e metodos necessários para a criação de um funcionário
  *
- * @author Rui Barros & Rui Vitorino
+ * @author Rui Barros
  * */
 
 public class Funcionarios implements Serializable{
@@ -14,9 +14,9 @@ public class Funcionarios implements Serializable{
     private int nif; //Unico
     private int telefone;
     int[] dataNascimento;
-
+    /***/
     public Funcionarios(){}
-
+    /***/
     public Funcionarios(String nm, String morada, String funcao, int nif, int tele, int dia, int mes, int ano, String nomeEmpresa){
         nome = nm;
         this.morada = morada;
@@ -26,19 +26,19 @@ public class Funcionarios implements Serializable{
         this.nomeEmpresa = nomeEmpresa;
         setDataNascimento(ano, mes, dia);
     }
-
+    /***/
     public void setDataNascimento(int ano, int mes, int dia) {
         dataNascimento = new int[]{dia, mes, ano};
     }
-
+    /***/
     public String getDataNascimento() {
         return dataNascimento[0] + "/" + dataNascimento[1] + "/" + dataNascimento[2];
     }
-
+    /***/
     public int getNif() {
         return nif;
     }
-
+    /***/
     @Override
     public String toString() {
         return "\n" +

@@ -4,7 +4,7 @@ import java.util.Calendar;
 
 /** Classe que disponibiliza um conjunto de metodos para gerir as informações das centrais
  *
- * @author Rui Barros & Rui Vitorino
+ * @author Rui Barros
  * */
 public class gerirCentrais {
 
